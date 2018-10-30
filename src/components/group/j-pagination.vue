@@ -26,7 +26,7 @@
           <Page :total="total" :current="searchData.page" :page-size="searchData.pageSize" @on-change="pageChange"></Page>
           <div class="page">
             <Input size="small" v-model="page"></Input>
-            <Button type="ghost" size="small" @click="pageChange(page)" class="go">GO</Button>
+            <Button size="small" @click="pageChange(page)" class="go">GO</Button>
           </div>
         </Col>
       </Row>
@@ -75,4 +75,7 @@ export default {
 </script>
 
 <style lang="less">
+.ivu-page-item-active {
+  background-color: #14a4ff;
+}
 </style>

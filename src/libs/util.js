@@ -46,6 +46,5 @@ export const getMenuByRouter = (list, access) => {
       if (showThisMenuEle(item, access)) res.push(obj)
     }
   })
-  console.log(res)
   return res
 }

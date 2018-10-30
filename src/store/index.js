@@ -9,11 +9,16 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: {
-      name: '未登录',
-      username: '未登录',
-      headimg: '',
-      addTime: 1272102123858,
-      enterprise: {}
+      'username': '未登录',
+      'weixin': null,
+      'address': '',
+      'email': null,
+      'cellphone': null,
+      'enterpriseName': '经销商分公司',
+      'name': null,
+      'lastLoginTime': 1540445759691,
+      'qq': null,
+      'addTime': 1540430568989
     },
     menuList: []
   },
@@ -30,5 +35,18 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    getUser ({ commit, state }) {
+      return this._vm.$http.request({
+        url: '/rest/api/agent/agentDetail',
+        method: 'get'
+      }).then((res) => {
+        if (res.success) {
+          let data = res.attributes.data
+          this.commit('setUser', data)
+        } else {
+          this._vm.$Message.success(res.msg)
+        }
+      })
+    }
   }
 })

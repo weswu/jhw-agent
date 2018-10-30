@@ -166,6 +166,9 @@ export default {
         display: inline-block;
         text-align: center;
         width: 50px;
+        .iconfont{
+          font-size: 14px;
+        }
     }
     .ivu-menu-submenu-title-icon{
       font-size: 14px;

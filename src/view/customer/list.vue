@@ -1,44 +1,22 @@
 <template>
   <Layout class="j_layout_content">
     <Content>
-      <JHeader :title="'会员管理'"/>
+      <JHeader :title="'会员管理'" :tip="'温馨提醒：'"/>
       <div class="j_search">
         <Row type="flex" justify="space-between">
           <Col>
-            <Button type="info" icon="plus" class="w130" @click="url('/member/add')">添加会员</Button>
+            <Input v-model="name" class="w180" clearable placeholder="请输入搜索内容" @on-change="clearInput"></Input>
+            <Button class="search" @click="search">搜索</Button>
           </Col>
           <Col>
-            <Input v-model="name" class="w180" clearable placeholder="请输入用户名" @on-change="clearInput"></Input>
+            <span style="color:#999">选择注册时间段：</span>
+            <DatePicker type="daterange" :options="options" split-panels @on-change="searchDate" style="width: 132px"></DatePicker>
             <Button class="search" @click="search">搜索</Button>
-            <Poptip placement="bottom-end" class="j_poptip_confirm_edit"
-              confirm
-              width="370"
-              @on-ok="advancedSearch">
-              <Button class="grey w130">高级搜索</Button>
-              <div slot="title">
-                <Form :model="searchData" :label-width="85">
-                  <FormItem label="会员用户名：">
-                    <Input v-model="searchData.name" class="w244" clearable></Input>
-                  </FormItem>
-                  <FormItem label="会员等级：">
-                    <Select v-model="searchData.memberRankId" class="w244">
-                      <Option value="">请选择</Option>
-                      <Option :value="item.rankId" v-for="item in $store.state.memberRankList" :key="item.rankId">{{item.name}}</Option>
-                    </Select>
-                  </FormItem>
-                </Form>
-              </div>
-            </Poptip>
           </Col>
         </Row>
       </div>
-      <Table ref="selection" :columns="columns" :data="list" @on-selection-change="handleSelectChange"/>
-      <JPagination :checkbox="true" :total="total" :searchData='searchData' @on-change="get">
-        <span slot="btn">
-          <Checkbox v-model="toggle" @on-change="handleSelectAll(toggle)"/>
-          <Button type="ghost" size="small"  @click="delAll">删除</Button>
-        </span>
-      </JPagination>
+      <Table ref="selection" :columns="columns" :data="list"/>
+      <JPagination :total="total" :searchData='searchData' @on-change="get"/>
     </Content>
   </Layout>
 </template>
@@ -55,42 +33,182 @@ export default {
   data () {
     return {
       columns: [
-        { type: 'selection', className: 'j_table_checkbox', width: 44 },
-        { type: 'index2', title: '序号', align: 'center', width: 60, render: this.indexFilter },
-        { title: '用户名', key: 'name', className: 'text-color', ellipsis: true, render: this.nameFilter },
-        { title: '会员等级', key: 'memberRank', render: this.rankFilter },
-        { title: '邮箱', key: 'email' },
-        { title: '注册时间', width: 148, key: 'addTime' },
-        { title: '状态', key: 'isAccountEnabled', width: 70, render: this.typeFilter },
-        { title: '来源：网站编号', key: 'layoutId' },
-        { title: '操作', className: 'j_table_operate', width: 120, render: this.renderOperate }
+        { title: '企业账号', key: 'username', className: 'text-color', ellipsis: true },
+        { title: '名称', key: 'enterprise.name', className: 'text-color', render: this.nameFilter },
+        { title: '注册时间', key: 'addTime', render: this.dataFilter },
+        { title: '状态', key: 'state', render: this.stateFilter },
+        { title: '生成的站点', key: 'layoutId', render: this.staticFilter },
+        { title: '操作', className: 'j_table_operate', width: 190, render: this.renderOperate }
       ],
-      list: [],
+      list: [
+        {
+          'address': null,
+          'name': null,
+          'state': '01',
+          'type': '01',
+          'country': null,
+          'version': null,
+          'position': null,
+          'domain': 'admin.jihui88.com',
+          'username': 'jhweyjwv',
+          'password': 'e10adc3949ba59abbe56e057f20f883e',
+          'posterId': null,
+          'cellphone': null,
+          'sex': null,
+          'code': null,
+          'qqfromOauth': '',
+          'weixinFromOauth': '',
+          'pcSitePayTime': null,
+          'pwdQuestion': null,
+          'mobileSitePayTime': null,
+          'enterpriseId': 'Enterp_0000000000000000000005980',
+          'wcdMember': null,
+          'sitemap': null,
+          'score': null,
+          'phone24': null,
+          'zipcode': null,
+          'pcode': null,
+          'codestate': null,
+          'robotsurl': null,
+          'jsonstr': null,
+          'url2': null,
+          'password2': '',
+          'vericode': 'd27rk60jxl72egcwprpdk52oyjrir24k',
+          'pwdAnswer': null,
+          'weixin': null,
+          'agentId': 'User_000000000000000000000001219',
+          'weibo': null,
+          'qq': null,
+          'msn': null,
+          'addTime': 1540456190748,
+          'url': null,
+          'grade': '00',
+          'userId': 'User_000000000000000000000006290',
+          'nickName': 'jhweyjwv',
+          'email': null,
+          'enterprise': {
+            'address': '',
+            'name': 'AAAA',
+            'key': null,
+            'type': '  ',
+            'annualImport': null,
+            'mainBusiness': null,
+            'annualExport': null,
+            'registeredCapital': null,
+            'legalPersonCellphone': null,
+            'businessPattern': null,
+            'siteServiceType': null,
+            'businessType': null,
+            'annualTurnover': null,
+            'domainCertPic': null,
+            'qualityControl': null,
+            'legalPersonIdNumber': null,
+            'legalPersonBust': null,
+            'bankAccount': null,
+            'redicpNumber': null,
+            'legalPersonPhoto': null,
+            'factoryArea': null,
+            'icon': null,
+            'enterpriseId': 'Enterp_0000000000000000000005980',
+            'edesc': null,
+            'url': 'admin.jihui88.com/site/jhweyjwv',
+            'userId': 'User_000000000000000000000006290',
+            'email': null,
+            'icp': null,
+            'lanId': 1,
+            'industry': '',
+            'phone': null,
+            'regTime': null,
+            'legalPre': null,
+            'staffSum': null,
+            'dist': null,
+            'rdSum': null,
+            'broadcast': null,
+            'ipadSite': null,
+            'entAddress': '未填写',
+            'mobileCode': null,
+            'qasyscert': null,
+            'bank': null,
+            'gsbsEjym': null,
+            'logo': null,
+            'brand': null,
+            'tel400true': null,
+            'sincerity': null,
+            'customer': null,
+            'monthProd': null,
+            'oem': null,
+            'guess': null,
+            'mapaddress': null,
+            'gsbsZym': null,
+            'market': null,
+            'mobileSite': null,
+            'tel400': null,
+            'certType': null,
+            'certNumber': null,
+            'psr': null,
+            'certPic': null
+          },
+          'phone': null,
+          'fax': null,
+          'dist': null,
+          'entUrl': 'http://admin.jihui88.com/site/jhweyjwv',
+          'userType': null
+        }
+      ],
       name: '',
       searchData: {
         page: 1,
-        pageSize: 10
+        pageSize: 10,
+        startDate: '',
+        endDate: ''
       },
       total: 0,
-      toggle: false,
-      ids: ''
+      options: {
+        shortcuts: [
+          {
+            text: '7天',
+            value () {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              return [start, end]
+            }
+          },
+          {
+            text: '15天',
+            value () {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 15)
+              return [start, end]
+            }
+          },
+          {
+            text: '30天',
+            value () {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+              return [start, end]
+            }
+          }
+        ]
+      }
     }
   },
   created () {
     this.get()
-    this.$store.dispatch('getMemberRank')
   },
   methods: {
     get () {
-      this.ids = ''
-      this.$http.get('/rest/api/member/list?' + qs.stringify(this.searchData)).then(res => {
+      this.$http.request({
+        url: '/rest/api/agent/member/list',
+        data: qs.stringify(this.searchData),
+        method: 'get'
+      }).then((res) => {
         if (res.success) {
           this.total = res.attributes.count
-          let data = res.attributes.data
-          data.forEach(item => {
-            item._checked = false
-          })
-          this.list = data || []
+          this.list = res.attributes.data
         }
       })
     },
@@ -109,95 +227,60 @@ export default {
       }
       this.get()
     },
-    advancedSearch () {
-      this.searchData.page = 1
-      this.get()
-    },
-    // 批量操作
-    handleSelectAll () {
-      this.$refs.selection.selectAll(this.toggle)
-    },
-    handleSelectChange (status) {
-      status.forEach((item, index) => {
-        if (index === 0) {
-          this.ids = item.memberId
-        } else {
-          this.ids = this.ids + ',' + item.memberId
-        }
-      })
-    },
-    delAll () {
-      if (!this.ids) {
-        return this.$Message.error('未选择')
-      }
-      var ctx = this
-      this.$http.post('/rest/api/member/butchDel?memberIds=' + this.ids).then((res) => {
-        if (res.success) {
-          this.$Message.success('删除成功')
-          this.ids.split(',').forEach(id => {
-            ctx.list.forEach((item, index) => {
-              if (id === item.memberId) {
-                ctx.list.splice(index, 1)
-              }
-            })
-          })
-        } else {
-          this.$Message.error(res.msg)
-        }
-      })
+    searchDate (e) {
+      this.searchData.startDate = e[0]
+      this.searchData.endDate = e[1]
     },
     // 过滤
-    indexFilter (h, params) {
-      return h('span', params.index + (this.searchData.page - 1) * this.searchData.pageSize + 1)
-    },
     nameFilter (h, params) {
-      return h('span', params.row.name || params.row.username)
+      return h('span', params.row.enterprise.name || '')
     },
-    rankFilter (h, params) {
-      return h('span', params.row.memberRank.name)
+    // 时间格式化
+    dataFilter (h, params) {
+      return h('div', this.dateFormat(params.row.addTime))
     },
-    typeFilter (h, params) {
-      return h('span', params.row.isAccountEnabled === '01' ? '不正常' : '正常')
+    stateFilter (h, params) {
+      return h('span', params.row.state === '01' ? '正常' : (params.row.state === '00' ? '未审核' : '审核未通过'))
+    },
+    staticFilter (h, params) {
+      return h('span', [
+        h('a', {
+          style: {
+            color: '#999'
+          },
+          on: {
+            click: () => {
+            }
+          }
+        }, '查看详情')
+      ])
     },
     renderOperate (h, params) {
-      var ctx = this
       return h('div', [
         h('a', {
           on: {
             click: () => {
-              this.$router.push({path: '/member/' + params.row.memberId})
             }
           }
-        }, '修改'),
+        }, '设置'),
         h('span', {
           class: { delimiter: true }
         }, '|'),
-        h('a', [
-          h('Poptip', {
-            props: {
-              confirm: true,
-              title: '确定要删除吗！',
-              width: '170',
-              placement: 'top-end'
-            },
-            on: {
-              'on-ok': () => {
-                this.$http.delete('/rest/api/member/detail/' + params.row.memberId).then((res) => {
-                  if (res.success) {
-                    ctx.$Message.success('删除成功')
-                    ctx.list.splice(params.index, 1)
-                    ctx.total -= 1
-                  } else {
-                    ctx.$Message.success(res.msg)
-                  }
-                })
-              },
-              'on-cancel': () => {
-                console.log('cancel')
-              }
+        h('a', {
+          on: {
+            click: () => {
             }
-          }, '删除')
-        ])
+          }
+        }, '重置密码'),
+        h('span', {
+          class: { delimiter: true }
+        }, '|'),
+        h('a', {
+          on: {
+            click: () => {
+            }
+          }
+        }, '创建')
       ])
     }
   }

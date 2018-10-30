@@ -214,12 +214,19 @@ export default {
   .ivu-menu-light.ivu-menu-vertical .ivu-menu-item{
     border-right: none;
     padding-right: 15px;
+    &:hover{
+      background: #f3f3f3;
+      color: #585858;
+    }
   }
   .ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu) {
     color: inherit;
     border-right: none;
     z-index: 2;
     background: #fff;overflow: hidden;
+    &:after{
+      display: none;
+    }
   }
 }
 </style>

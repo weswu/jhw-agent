@@ -10,7 +10,7 @@ const routers = [
     meta: {
       icon: 'ai-home',
       title: '首页',
-      showInMenu: true,
+      showInMenu: false,
       root: true
     },
     children: [

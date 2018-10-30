@@ -23,26 +23,33 @@
             <p>账号：{{user.username}}</p>
           </div>
           <div style="height:80px;"></div>
-          <a href="javascript:;" @click="signout" class="signout"> <span v-if="user.username !== '未登录'">退出</span><span v-else>登录</span> </a>
+          <a href="javascript:;" @click="signout" class="signout"><span v-if="user.username !== '未登录'">退出</span><span v-else>登录</span> </a>
         </DropdownMenu>
       </Dropdown>
     </Col>
+    <JLogin ref="login"/>
   </Row>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
+import JLogin from '@/components/group/j-login'
 export default {
+  components: {
+    JLogin
+  },
   computed: {
     ...mapState(['user'])
   },
   created () {
     this.$store.commit('setMenuList', '')
+    this.getUser()
   },
   methods: {
+    ...mapActions(['getUser']),
     signout () {
       if (this.user.username === '未登录') {
-        window.location.href = 'http://www.jihui88.com/manage_v4/login.html?backURL=' + decodeURIComponent(window.location.origin + window.location.pathname)
+        this.$refs.login.open()
       } else {
         this.$http.get('/rest/api/user/logout').then((res) => {
           if (res.success) {
@@ -86,7 +93,7 @@ export default {
   }
   .ivu-dropdown{
     height: 50px;
-    vertical-align: top;margin-right: -3px;
+    vertical-align: top;
     .ivu-dropdown-rel{
       height: 50px;
     }
