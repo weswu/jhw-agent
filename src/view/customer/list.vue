@@ -5,19 +5,34 @@
       <div class="j_search">
         <Row type="flex" justify="space-between">
           <Col>
-            <Input v-model="name" class="w180" clearable placeholder="请输入搜索内容" @on-change="clearInput"></Input>
+            <Input v-model="searchData.name" class="w180" clearable placeholder="请输入搜索内容"></Input>
             <Button class="search" @click="search">搜索</Button>
           </Col>
           <Col>
             <span style="color:#999">选择注册时间段：</span>
             <DatePicker type="daterange" :options="options" split-panels @on-change="searchDate" style="width: 132px"></DatePicker>
-            <Button class="search" @click="search">搜索</Button>
+            <Button class="search" @click="get">搜索</Button>
           </Col>
         </Row>
       </div>
       <Table ref="selection" :columns="columns" :data="list"/>
       <JPagination :total="total" :searchData='searchData' @on-change="get"/>
     </Content>
+    <Modal
+      v-model="modal"
+      width="400"
+      title="设置"
+      @on-cancel="modal = false">
+      <div slot="footer">
+        <Button type="text" size="large" @click="modal = false">取消</Button>
+        <Button type="primary" size="large" @click="submit">保存</Button>
+      </div>
+      <Form :label-width="100">
+        <FormItem label="公司名称:">
+          <Input v-model="enterpriseName" style="width:180px"></Input>
+        </FormItem>
+      </Form>
+    </Modal>
   </Layout>
 </template>
 
@@ -32,15 +47,19 @@ export default {
   },
   data () {
     return {
+      modal: false,
+      index: 0,
+      enterpriseName: '',
       columns: [
         { title: '企业账号', key: 'username', className: 'text-color', ellipsis: true },
         { title: '名称', key: 'enterprise.name', className: 'text-color', render: this.nameFilter },
         { title: '注册时间', key: 'addTime', render: this.dataFilter },
-        { title: '状态', key: 'state', render: this.stateFilter },
+        { title: '状态', key: 'state', maxWidth: 100, render: this.stateFilter },
         { title: '生成的站点', key: 'layoutId', render: this.staticFilter },
         { title: '操作', className: 'j_table_operate', width: 190, render: this.renderOperate }
       ],
-      list: [
+      list: [],
+      listTest: [
         {
           'address': null,
           'name': null,
@@ -155,10 +174,10 @@ export default {
           'userType': null
         }
       ],
-      name: '',
       searchData: {
         page: 1,
         pageSize: 10,
+        name: '',
         startDate: '',
         endDate: ''
       },
@@ -202,8 +221,7 @@ export default {
   methods: {
     get () {
       this.$http.request({
-        url: '/rest/api/agent/member/list',
-        data: qs.stringify(this.searchData),
+        url: '/rest/api/agent/member/list?' + qs.stringify(this.searchData),
         method: 'get'
       }).then((res) => {
         if (res.success) {
@@ -213,23 +231,32 @@ export default {
       })
     },
     // 功能
-    clearInput () {
-      if (this.name === '') {
-        this.searchData.name = this.name
-        this.get()
-      }
-    },
     search () {
-      this.searchData = {
-        page: 1,
-        pageSize: this.searchData.pageSize,
-        name: this.name
-      }
+      this.searchData.page = 1
       this.get()
     },
     searchDate (e) {
       this.searchData.startDate = e[0]
       this.searchData.endDate = e[1]
+    },
+    submit () {
+      let item = this.list[this.index]
+      this.$http.request({
+        url: '/rest/api/agent/member/edit',
+        data: qs.stringify({
+          enterpriseName: this.enterpriseName,
+          userId: item.userId
+        }),
+        method: 'post'
+      }).then((res) => {
+        if (res.success) {
+          this.$Message.success(res.msg)
+          item.enterprise.name = this.enterpriseName
+          this.$set(this.list, this.index, item)
+        } else {
+          this.$Message.error(res.msg)
+        }
+      })
     },
     // 过滤
     nameFilter (h, params) {
@@ -250,6 +277,7 @@ export default {
           },
           on: {
             click: () => {
+              this.$router.push({ path: '/member/static/' + params.row.enterpriseId })
             }
           }
         }, '查看详情')
@@ -260,6 +288,9 @@ export default {
         h('a', {
           on: {
             click: () => {
+              this.modal = true
+              this.index = params.index
+              this.enterpriseName = params.row.enterprise.name
             }
           }
         }, '设置'),
@@ -269,6 +300,19 @@ export default {
         h('a', {
           on: {
             click: () => {
+              this.$http.request({
+                url: '/rest/api/agent/member/resetPassword',
+                data: qs.stringify({
+                  userId: params.row.userId
+                }),
+                method: 'post'
+              }).then((res) => {
+                if (res.success) {
+                  this.$Message.success(res.msg)
+                } else {
+                  this.$Message.error(res.msg)
+                }
+              })
             }
           }
         }, '重置密码'),
@@ -278,6 +322,19 @@ export default {
         h('a', {
           on: {
             click: () => {
+              this.$http.request({
+                url: '/rest/pc/api/baselayout/listLayoutByEnterpriseId',
+                data: qs.stringify({
+                  enterpriseId: params.row.enterpriseId
+                }),
+                method: 'post'
+              }).then((res) => {
+                if (res.success) {
+                  this.$Message.success(res.msg)
+                } else {
+                  this.$Message.error(res.msg)
+                }
+              })
             }
           }
         }, '创建')

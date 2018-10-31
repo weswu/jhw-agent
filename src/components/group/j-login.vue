@@ -9,7 +9,7 @@
               <input name="username" type="text" placeholder="请输入经销商账号" v-model="model.username" class="border">
               <input name="password" type="password" placeholder="请输入密码" v-model="model.password" class="border">
               <input type="text" name="randCode" placeholder="填写验证码" v-model="model.randCode">
-              <img :src="'http://buy.jihui88.com/verificationCode'+verifyPic" class="veriImg" @click="refreshCode">
+              <img :src="'http://www.jihui88.com/alphveriImg'+verifyPic" class="veriImg" @click="refreshCode">
             </div>
             <button type="button" class="submit" @click="submit" @keyup.enter="submit">登录</button>
           </div>
@@ -52,16 +52,18 @@ export default {
       if (!this.model.password) {
         return this.$Message.info('密码不能为空')
       }
+      this.$store.commit('setLoading', true)
       this.$http.request({
-        url: '/rest/api/user/agentlogin',
+        url: '/rest/api/user/agentLogin',
         data: qs.stringify(this.model),
         method: 'post'
       }).then((res) => {
+        this.$store.commit('setLoading', false)
         if (res.success) {
-          let data = res.attributes.data
-          this.$store.commit('setUser', data)
+          this.$store.dispatch('getUser')
         } else {
           this.$Message.success(res.msg)
+          this.refreshCode()
         }
       })
     }

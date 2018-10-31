@@ -7,7 +7,7 @@
       </div>
       <div @click="collapsedSider" :class="rotateIcon">
         <div class="navbar-collapse-bg"></div>
-        <img src="platform/img/toggle.png" alt="">
+        <img src="http://www.jihui88.com/manage_v4/platform/img/toggle.png" alt="">
       </div>
       <Menu ref="menu" width="auto" :class="menuitemClasses" :active-name="activeName" @on-select="mrouter">
         <MenuItem :name="item.value || item.name" v-for="(item, index) in list" :key="index">
@@ -34,8 +34,7 @@ export default {
   computed: {
     ...mapState({
       menuList: state => state.menuList,
-      win: state => state.win,
-      userInfo: state => state.userInfo
+      win: state => state.win
     }),
     rotateIcon () {
       return [
@@ -53,11 +52,6 @@ export default {
   watch: {
     $route (to, from) {
       this.init()
-    },
-    userInfo: {
-      handler () {
-        this.init()
-      }
     }
   },
   created () {

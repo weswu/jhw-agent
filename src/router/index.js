@@ -6,8 +6,9 @@ import iView from 'iview'
 Vue.use(Router)
 // 路由配置
 const router = new Router({
-  routes,
-  mode: 'history'
+  routes
+  // mode: 'history',
+  // base: '/agent_v4/'
 })
 
 router.beforeEach((to, from, next) => {

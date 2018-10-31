@@ -75,7 +75,4 @@ export default {
 </script>
 
 <style lang="less">
-.ivu-page-item-active {
-  background-color: #14a4ff;
-}
 </style>

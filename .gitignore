@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
-/dist
+/agent_v4
+agent_v4.zip
 
 # local env files
 .env.local

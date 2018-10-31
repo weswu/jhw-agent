@@ -20,11 +20,13 @@ export default new Vuex.Store({
       'qq': null,
       'addTime': 1540430568989
     },
-    menuList: []
+    menuList: [],
+    loading: false
   },
   getters: {
     user: state => state.user,
-    menuList: state => state.menuList
+    menuList: state => state.menuList,
+    loading: state => state.loading
   },
   mutations: {
     setUser (state, user) {
@@ -32,6 +34,9 @@ export default new Vuex.Store({
     },
     setMenuList (state, menuList) {
       state.menuList = getMenuByRouter(routers, '')
+    },
+    setLoading (state, loading) {
+      state.loading = loading
     }
   },
   actions: {
@@ -43,8 +48,6 @@ export default new Vuex.Store({
         if (res.success) {
           let data = res.attributes.data
           this.commit('setUser', data)
-        } else {
-          this._vm.$Message.success(res.msg)
         }
       })
     }

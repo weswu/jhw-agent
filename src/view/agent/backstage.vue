@@ -3,7 +3,7 @@
     <JHeader :title="'客户后台设置'" :tip="'温馨提醒：'"/>
     <Content>
       <Form :model="detail" :label-width="130" ref="model">
-        <FormItem label="公司Logo：">
+        <FormItem label="公司Logo：" style="margin-bottom:20px">
           <JImage :src="detail.logo" @on-change="picChange" :width="104"/>
         </FormItem>
         <FormItem label="联系人：">
@@ -23,6 +23,13 @@
         </FormItem>
         <FormItem label="联系地址：">
           <Input v-model="detail.address" placeholder="请输入联系地址"></Input>
+        </FormItem>
+        <FormItem label="视频教程：" style="margin-top:70px">
+          <RadioGroup v-model="detail.isMarketableBol">
+            <Radio label="01">开启</Radio>
+            <Radio label="00">关闭</Radio>
+            <Radio label="02">替换链接</Radio>
+          </RadioGroup>
         </FormItem>
       </Form>
     </Content>

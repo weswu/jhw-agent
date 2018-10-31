@@ -28,15 +28,19 @@
       </Dropdown>
     </Col>
     <JLogin ref="login"/>
+    <!-- 加载中..."  -->
+    <JLoading/>
   </Row>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
 import JLogin from '@/components/group/j-login'
+import JLoading from '@/components/group/j-loading'
 export default {
   components: {
-    JLogin
+    JLogin,
+    JLoading
   },
   computed: {
     ...mapState(['user'])
@@ -51,9 +55,23 @@ export default {
       if (this.user.username === '未登录') {
         this.$refs.login.open()
       } else {
-        this.$http.get('/rest/api/user/logout').then((res) => {
+        this.$http.request({
+          url: '/rest/api/user/logout',
+          method: 'get'
+        }).then((res) => {
           if (res.success) {
-            window.location.href = 'http://www.jihui88.com/manage_v4/login.html?backURL=' + window.location.origin + window.location.pathname
+            this.$store.commit('setUser', {
+              'username': '未登录',
+              'weixin': null,
+              'address': '',
+              'email': null,
+              'cellphone': null,
+              'enterpriseName': '经销商分公司',
+              'name': null,
+              'lastLoginTime': 1540445759691,
+              'qq': null,
+              'addTime': 1540430568989
+            })
           } else {
             this.$Message.success(res.msg)
           }

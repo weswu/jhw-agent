@@ -5,7 +5,7 @@ const routers = [
   {
     path: '/',
     name: 'index',
-    redirect: '/home',
+    redirect: '/account/info',
     component: Main,
     meta: {
       icon: 'ai-home',
@@ -107,6 +107,18 @@ const routers = [
               showInMenu: true
             },
             component: () => import('@/view/customer/add')
+          },
+          {
+            path: 'static/:id',
+            name: 'member/static',
+            meta: {
+              title: '站点',
+              detail: true,
+              menu: [
+                { text: '基本信息', value: '0' }
+              ]
+            },
+            components: require('@/view/customer/static')
           }
         ]
       },

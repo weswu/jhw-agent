@@ -5,13 +5,13 @@
       <div class="j_search">
         <Row type="flex" justify="space-between">
           <Col>
-            <Input v-model="name" class="w180" clearable placeholder="请输入搜索内容" @on-change="clearInput"></Input>
+            <Input v-model="searchData.searchKey" class="w180" clearable placeholder="请输入搜索内容"></Input>
             <Button class="search" @click="search">搜索</Button>
           </Col>
           <Col>
             <span style="color:#999">选择到期时间段：</span>
             <DatePicker type="daterange" :options="options" split-panels @on-change="searchDate" style="width: 132px"></DatePicker>
-            <Button class="search" @click="search">搜索</Button>
+            <Button class="search" @click="get">搜索</Button>
           </Col>
         </Row>
       </div>
@@ -47,8 +47,9 @@ export default {
       searchData: {
         page: 1,
         pageSize: 10,
-        startDate: '',
-        endDate: ''
+        searchKey: '',
+        startTime: '',
+        endTime: ''
       },
       total: 0,
       options: {
@@ -90,8 +91,7 @@ export default {
   methods: {
     get () {
       this.$http.request({
-        url: '/rest/api/agent/member/list',
-        data: qs.stringify(this.searchData),
+        url: '/rest/api/agent/order/list?' + qs.stringify(this.searchData),
         method: 'get'
       }).then((res) => {
         if (res.success) {
@@ -101,23 +101,13 @@ export default {
       })
     },
     // 功能
-    clearInput () {
-      if (this.name === '') {
-        this.searchData.name = this.name
-        this.get()
-      }
-    },
     search () {
-      this.searchData = {
-        page: 1,
-        pageSize: this.searchData.pageSize,
-        name: this.name
-      }
+      this.searchData = 1
       this.get()
     },
     searchDate (e) {
-      this.searchData.startDate = e[0]
-      this.searchData.endDate = e[1]
+      this.searchData.startTime = e[0]
+      this.searchData.endTime = e[1]
     },
     // 过滤
     nameFilter (h, params) {

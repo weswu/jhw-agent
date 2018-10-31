@@ -12,7 +12,7 @@ const resolve = dir => {
 // 例如：https://www.foobar.com/my-app/
 // 需要将它改为'/my-app/'
 const BASE_URL = process.env.NODE_ENV === 'production'
-  ? '/'
+  ? ''
   : '/'
 
 module.exports = {
@@ -31,6 +31,7 @@ module.exports = {
   // https://www.foobar.com/my-app/
   // then change this to '/my-app/'
   baseUrl: BASE_URL,
+  outputDir: 'agent_v4',
   // tweak internal webpack configuration.
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
   // 如果你不需要使用eslint，把lintOnSave设为false即可
@@ -47,7 +48,7 @@ module.exports = {
   // 问题-配置后启动不了-wes
   devServer: {
   //   stats: 'errors-only',
-  //   disableHostCheck: true,
+    disableHostCheck: true,
     proxy: 'http://www.jihui88.com/'
     // proxy: {
     //   '/rest': {

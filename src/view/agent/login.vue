@@ -7,7 +7,7 @@
           <Input v-model="detail.username" placeholder="请输入客户登录网址" style="width:333px;margin-right:7px"></Input>
           <Button class="submit" @click="add" style="padding:6px 20px">提交</Button>
         </FormItem>
-        <FormItem label="公司Logo：">
+        <FormItem label="公司Logo：" style="margin-top:20px">
           <JImage :src="detail.logo" @on-change="picChange" :width="104"/>
         </FormItem>
       </Form>

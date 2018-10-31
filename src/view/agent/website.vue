@@ -7,8 +7,25 @@
           <Input v-model="detail.username" placeholder="请输入预览网址" style="width:333px;margin-right:7px"></Input>
           <Button class="submit" @click="add" style="padding:6px 20px">提交</Button>
         </FormItem>
-        <FormItem label="公司Logo：">
+        <FormItem label="公司Logo：" style="margin:44px 0 50px 0">
           <JImage :src="detail.logo" @on-change="picChange" :width="104"/>
+        </FormItem>
+        <FormItem label="" class="lan">
+          <span>中文语言</span><span>英文语言</span>
+        </FormItem>
+        <FormItem label="设计支持：" class="support">
+          <Input v-model="detail.name"></Input>
+          <Input v-model="detail.name"></Input>
+        </FormItem>
+        <FormItem label="链接设置：">
+          <Input v-model="detail.name"></Input>
+        </FormItem>
+        <FormItem label="设计支持：" class="support" style="margin-top:23px;">
+          <Input v-model="detail.name"></Input>
+          <Input v-model="detail.name"></Input>
+        </FormItem>
+        <FormItem label="链接设置：">
+          <Input v-model="detail.name"></Input>
         </FormItem>
       </Form>
     </Content>
@@ -54,5 +71,21 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
+.ivu-form .ivu-input-wrapper {
+  width: 412px;
+}
+.lan{
+  span{
+    width: 217px;
+    display: inline-block;
+  }
+}
+.support{
+  margin-top:13px;
+  .ivu-input-wrapper{
+    width: 195px;
+    margin-right: 22px;
+  }
+}
 </style>
