@@ -47,7 +47,20 @@ export default {
   },
   created () {
     this.$store.commit('setMenuList', '')
-    this.getUser()
+    // this.getUser()
+    this.$http.request({
+      url: '/rest/api/agent/agentDetail',
+      method: 'get'
+    }).then((res) => {
+      if (res.success) {
+        let data = res.attributes.data
+        this.$store.commit('setUser', data)
+      } else {
+        if (res.msgType === 'notLogin') {
+          this.$refs.login.open()
+        }
+      }
+    })
   },
   methods: {
     ...mapActions(['getUser']),

@@ -41,7 +41,7 @@ export default new Vuex.Store({
   },
   actions: {
     getUser ({ commit, state }) {
-      return this._vm.$http.request({
+      this._vm.$http.request({
         url: '/rest/api/agent/agentDetail',
         method: 'get'
       }).then((res) => {
