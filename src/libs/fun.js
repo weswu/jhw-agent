@@ -29,3 +29,24 @@ Vue.prototype.dateFormat = function (date, format) {
   }
   return format
 }
+
+/**
+ * 还原ID
+ * @method [字符串] - decodeId ( 还原ID )
+ * @param id
+ * @param prefix
+ * @param length
+ * @return {string}
+ * @author wyj 15.1.13
+ * @example
+ *      Est.decodeId('123' , 'Product_' , 32);
+ *      ==> Product_00000000000000000000123
+ */
+Vue.prototype.decodeId = function (id, prefix, length) {
+  var len = prefix.length + id.length - 1
+  return prefix + new Array(length - len).join('0') + id
+}
+
+Vue.prototype.encodeId = function (target) {
+  return target == null ? '' : target.replace(/^[^1-9]+/, '')
+}

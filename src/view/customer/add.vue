@@ -1,6 +1,6 @@
 <template>
   <Layout class="j_layout_content j_form_detail">
-    <JHeader :title="'创建新的客户'" :tip="'请完善以下信息，方便我们更好的为您服务'"/>
+    <JHeader :title="'创建新的客户'"/>
     <Content>
       <Form :model="detail" :label-width="130" ref="model">
         <FormItem label="用户名：">

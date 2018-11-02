@@ -61,6 +61,7 @@ export default {
         this.$store.commit('setLoading', false)
         if (res.success) {
           this.$store.dispatch('getUser')
+          this.close()
         } else {
           this.$Message.success(res.msg)
           this.refreshCode()

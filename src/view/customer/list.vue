@@ -322,19 +322,7 @@ export default {
         h('a', {
           on: {
             click: () => {
-              this.$http.request({
-                url: '/rest/pc/api/baselayout/listLayoutByEnterpriseId',
-                data: qs.stringify({
-                  enterpriseId: params.row.enterpriseId
-                }),
-                method: 'post'
-              }).then((res) => {
-                if (res.success) {
-                  this.$Message.success(res.msg)
-                } else {
-                  this.$Message.error(res.msg)
-                }
-              })
+              this.$router.push({ path: '/member/order/' + this.encodeId(params.row.userId) })
             }
           }
         }, '创建')

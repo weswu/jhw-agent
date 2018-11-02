@@ -5,7 +5,7 @@
       <div class="j_search">
         <Row type="flex" justify="space-between">
           <Col>
-            <Input v-model="searchData.searchKey" class="w180" clearable placeholder="请输入搜索内容"></Input>
+            <Input v-model="searchData.searchkey" class="w180" clearable placeholder="请输入搜索内容"></Input>
             <Button class="search" @click="search">搜索</Button>
           </Col>
           <Col>
@@ -34,20 +34,35 @@ export default {
     return {
       columns: [
         { title: '企业账号', key: 'username', className: 'text-color', ellipsis: true },
-        { title: '订单编号', key: 'enterprise.name', className: 'text-color', render: this.nameFilter },
-        { title: '产品名称', key: 'enterprise.name', className: 'text-color', render: this.nameFilter },
+        { title: '订单编号', key: 'orderSn', className: 'text-color' },
+        { title: '产品名称', key: 'productName' },
         { title: '创建时间', key: 'addTime', render: this.dataFilter },
-        { title: '站点', key: 'layoutId', render: this.staticFilter },
-        { title: '金额', key: 'state', render: this.stateFilter },
-        { title: '到期时间', key: 'addTime', render: this.dataFilter },
+        { title: '站点', render: this.staticFilter },
+        { title: '金额', key: 'amount' },
+        { title: '到期时间', key: 'addTime', render: this.endTimeFilter },
         { title: '操作', className: 'j_table_operate', width: 80, render: this.renderOperate }
       ],
       list: [],
+      listTest: [
+        {
+          'endTime': 1543665647571,
+          'username': 'jihui88',
+          'amount': 0,
+          'productType': 'pc',
+          'userId': 'User_000000000000000000000001220',
+          'productId': '1326',
+          'addTime': 1541073644760,
+          'orderSn': '1541073644',
+          'orderId': 'OrderAgent_000000000000000000001',
+          'productName': '网站(展示)',
+          'agentId': 'User_000000000000000000000006291'
+        }
+      ],
       name: '',
       searchData: {
         page: 1,
         pageSize: 10,
-        searchKey: '',
+        searchkey: '',
         startTime: '',
         endTime: ''
       },
@@ -117,27 +132,26 @@ export default {
     dataFilter (h, params) {
       return h('div', this.dateFormat(params.row.addTime))
     },
-    stateFilter (h, params) {
-      return h('span', params.row.state === '01' ? '正常' : (params.row.state === '00' ? '未审核' : '审核未通过'))
+    endTimeFilter (h, params) {
+      return h('div', this.dateFormat(params.row.endTime))
     },
     staticFilter (h, params) {
-      return h('span', [
-        h('a', {
-          style: {
-            color: '#999'
-          },
-          on: {
-            click: () => {
-            }
-          }
-        }, '查看详情')
-      ])
+      return h('a', {
+        style: {
+          color: '#999'
+        },
+        attrs: {
+          href: 'http://pc.jihui88.com/rest/site/' + params.row.productId + '/index',
+          target: '_blank'
+        }
+      }, '查看')
     },
     renderOperate (h, params) {
       return h('div', [
         h('a', {
           on: {
             click: () => {
+              this.$router.push({ path: '/order/detail/' + this.encodeId(params.row.orderId) })
             }
           }
         }, '详情')

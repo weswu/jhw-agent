@@ -2,7 +2,6 @@
   <Layout class="j_layout_content">
     <JHeader :title="'站点详情'"></JHeader>
     <Content>
-
       <ul class="static_info j_scroll">
         <li class="item" v-for="item in list" :key="item.id">
           <p>
@@ -57,7 +56,7 @@ export default {
   methods: {
     get () {
       this.$http.request({
-        url: '/rest/pc/api/baselayout/listLayoutByEnterpriseId?enterpriseId =' + this.$route.params.id,
+        url: '/rest/pc/api/baselayout/listLayoutByEnterpriseId?enterpriseId=' + this.$route.params.id,
         method: 'get'
       }).then((res) => {
         if (res.success) {

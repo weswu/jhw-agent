@@ -119,6 +119,18 @@ const routers = [
               ]
             },
             components: require('@/view/customer/static')
+          },
+          {
+            path: 'order/:id',
+            name: 'member/order',
+            meta: {
+              title: '站点',
+              detail: true,
+              menu: [
+                { text: '基本信息', value: '0' }
+              ]
+            },
+            components: require('@/view/customer/orderAdd')
           }
         ]
       },
@@ -143,13 +155,16 @@ const routers = [
             component: () => import('@/view/customer/orderList')
           },
           {
-            path: 'add',
-            name: 'order/add',
+            path: 'detail/:id',
+            name: 'order/detail',
             meta: {
-              title: '创建新的客户订单',
-              showInMenu: true
+              title: ' ',
+              detail: true,
+              menu: [
+                { text: '基本信息', value: '0' }
+              ]
             },
-            component: () => import('@/view/customer/orderAdd')
+            components: require('@/view/customer/orderDetail')
           }
         ]
       }
