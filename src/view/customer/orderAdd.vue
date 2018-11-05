@@ -6,9 +6,9 @@
         <FormItem label="商品类型：">
           <RadioGroup v-model="detail.productType">
             <Radio label="pc">网站</Radio>
-            <Radio label="wcd">微传单</Radio>
+            <!--<Radio label="wcd">微传单</Radio>
             <Radio label="wxapp">微信小程序</Radio>
-            <Radio label="wpc">微网页</Radio>
+            <Radio label="wpc">微网页</Radio>-->
           </RadioGroup>
         </FormItem>
       </Form>

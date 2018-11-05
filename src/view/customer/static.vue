@@ -56,7 +56,7 @@ export default {
   methods: {
     get () {
       this.$http.request({
-        url: '/rest/pc/api/baselayout/listLayoutByEnterpriseId?enterpriseId=' + this.$route.params.id,
+        url: '/rest/pc/api/baseLayout/listLayoutByEnterpriseId?enterpriseId=' + this.$route.params.id,
         method: 'get'
       }).then((res) => {
         if (res.success) {

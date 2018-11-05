@@ -19,7 +19,7 @@
           {{detail.addTime | time}}
         </FormItem>
         <FormItem label="到期时间：">
-          <DatePicker type="datetime" placeholder="到期时间" :value="detail.endTime" @on-change="detail.endTime=$event" style="width: 155px;"></DatePicker>
+          <DatePicker type="date" placeholder="到期时间" :value="detail.endTime" @on-change="detail.endTime=$event" style="width: 155px;"></DatePicker>
         </FormItem>
       </Form>
     </Content>

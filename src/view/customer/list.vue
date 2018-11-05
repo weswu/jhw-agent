@@ -1,11 +1,11 @@
 <template>
   <Layout class="j_layout_content">
     <Content>
-      <JHeader :title="'会员管理'" :tip="'温馨提醒：'"/>
+      <JHeader :title="'客户列表'" :tip="'温馨提醒：'"/>
       <div class="j_search">
         <Row type="flex" justify="space-between">
           <Col>
-            <Input v-model="searchData.name" class="w180" clearable placeholder="请输入搜索内容"></Input>
+            <Input v-model="searchData.searchKey" class="w180" clearable placeholder="请输入搜索内容"></Input>
             <Button class="search" @click="search">搜索</Button>
           </Col>
           <Col>
@@ -177,9 +177,9 @@ export default {
       searchData: {
         page: 1,
         pageSize: 10,
-        name: '',
-        startDate: '',
-        endDate: ''
+        searchKey: '',
+        startTime: '',
+        endTime: ''
       },
       total: 0,
       options: {
@@ -236,8 +236,8 @@ export default {
       this.get()
     },
     searchDate (e) {
-      this.searchData.startDate = e[0]
-      this.searchData.endDate = e[1]
+      this.searchData.startTime = e[0]
+      this.searchData.endTime = e[1]
     },
     submit () {
       let item = this.list[this.index]
