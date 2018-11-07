@@ -2,13 +2,18 @@
   <Layout class="j_layout_content j_form_detail">
     <JHeader :title="'客户登录设置'" :tip="'温馨提醒：联系我们：139 6793 8189 帮您绑定登录网址'"/>
     <Content>
-      <Form :model="detail" :label-width="130" ref="model">
-        <FormItem label="客户登录网址：">
-          <Input v-model="detail.username" placeholder="请输入客户登录网址" style="width:333px;margin-right:7px"></Input>
-          <Button class="submit" @click="add" style="padding:6px 20px">提交</Button>
+      <Form :model="config" :label-width="130" ref="model">
+      <FormItem label="客户绑定域名：">
+        <Input v-model="config.bindUrl" placeholder="请输入客户绑定域名"></Input>
+      </FormItem>
+        <FormItem label="登录页左上Logo：" style="margin-top:20px">
+          <JImage :src="config.loginLogo1" @on-change="picChange" :width="104"/>
         </FormItem>
-        <FormItem label="公司Logo：" style="margin-top:20px">
-          <JImage :src="detail.logo" @on-change="picChange" :width="104"/>
+        <FormItem label="登录页广告图：" style="margin-top:20px">
+          <JImage :src="config.loginLogo2" @on-change="picChange1" :width="104"/>
+        </FormItem>
+        <FormItem label="登录页右边Logo：" style="margin-top:20px">
+          <JImage :src="config.loginLogo3" @on-change="picChange2" :width="104"/>
         </FormItem>
       </Form>
     </Content>
@@ -20,6 +25,7 @@
 
 <script>
 import qs from 'qs'
+import { mapState } from 'vuex'
 import JHeader from '@/components/group/j-header'
 import JImage from '@/components/group/j-image'
 export default {
@@ -27,28 +33,28 @@ export default {
     JHeader,
     JImage
   },
-  data () {
-    return {
-      detail: {}
-    }
+  computed: {
+    ...mapState(['config'])
+  },
+  created () {
+    if (!this.config.configId) this.$store.dispatch('getConfig')
   },
   methods: {
     picChange (e) {
-      this.detail.log = e.src
+      this.config.loginLogo1 = e.src
     },
-    add () {},
+    picChange1 (e) {
+      this.config.loginLogo2 = e.src
+    },
+    picChange2 (e) {
+      this.config.loginLogo3 = e.src
+    },
     submit () {
-      this.$http.request({
-        url: '/rest/api/agent/member/add',
-        data: qs.stringify(this.detail),
-        method: 'post'
-      }).then((res) => {
-        if (res.success) {
-          this.$Message.success('添加成功')
-        } else {
-          this.$Message.success(res.msg)
-        }
-      })
+      this.$store.dispatch('setConfig', qs.stringify(this.config))
+      let ctx = this
+      setTimeout(function () {
+        ctx.$Message.success('保存成功')
+      }, 1000)
     }
   }
 }

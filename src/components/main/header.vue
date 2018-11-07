@@ -56,7 +56,7 @@ export default {
         let data = res.attributes.data
         this.$store.commit('setUser', data)
       } else {
-        if (res.msgType === 'notLogin') {
+        if (res.msgType === 'notLogin' && location.port !== '8080') {
           this.$refs.login.open()
         }
       }

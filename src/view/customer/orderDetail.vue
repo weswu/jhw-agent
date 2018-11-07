@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import qs from 'qs'
 import JHeader from '@/components/group/j-header'
 export default {
   components: {
@@ -46,7 +47,7 @@ export default {
   methods: {
     get () {
       this.$http.request({
-        url: '/rest/api/agent/order/detail?orderId=' + this.decodeId(this.$route.params.id, 'OrderAgent_', 32)
+        url: '/rest/api/agent/order/detail?orderId=' + this.decodeId(this.$route.params.id, 'AgentOrder_', 32)
       }).then((res) => {
         if (res.success) {
           this.detail = res.attributes.data
@@ -60,7 +61,7 @@ export default {
             'productId': '1326',
             'addTime': 1541073644760,
             'orderSn': '1541073644',
-            'orderId': 'OrderAgent_000000000000000000001',
+            'orderId': 'AgentOrder_000000000000000000001',
             'productName': '网站(展示)',
             'agentId': 'User_000000000000000000000006291'
           }
@@ -76,7 +77,7 @@ export default {
       }
       this.$http.request({
         url: '/rest/api/agent/order/edit',
-        data: data,
+        data: qs.stringify(data),
         method: 'post'
       }).then((res) => {
         if (res.success) {

@@ -2,30 +2,23 @@
   <Layout class="j_layout_content j_form_detail">
     <JHeader :title="'客户网站设置'" :tip="'温馨提醒：'"/>
     <Content>
-      <Form :model="detail" :label-width="130" ref="model">
-        <FormItem label="预览网址：">
-          <Input v-model="detail.username" placeholder="请输入预览网址" style="width:333px;margin-right:7px"></Input>
-          <Button class="submit" @click="add" style="padding:6px 20px">提交</Button>
-        </FormItem>
-        <FormItem label="公司Logo：" style="margin:44px 0 50px 0">
-          <JImage :src="detail.logo" @on-change="picChange" :width="104"/>
-        </FormItem>
+      <Form :model="config" :label-width="130" ref="model">
         <FormItem label="" class="lan">
           <span>中文语言</span><span>英文语言</span>
         </FormItem>
         <FormItem label="设计支持：" class="support">
-          <Input v-model="detail.name"></Input>
-          <Input v-model="detail.name"></Input>
+          <Input v-model="config.designSupportCn"></Input>
+          <Input v-model="config.designSupportEn"></Input>
         </FormItem>
         <FormItem label="链接设置：">
-          <Input v-model="detail.name"></Input>
+          <Input v-model="config.designSupportLink"></Input>
         </FormItem>
-        <FormItem label="设计支持：" class="support" style="margin-top:23px;">
-          <Input v-model="detail.name"></Input>
-          <Input v-model="detail.name"></Input>
+        <FormItem label="技术支持：" class="support" style="margin-top:23px;">
+          <Input v-model="config.tecSupportCn"></Input>
+          <Input v-model="config.tecSupportEn"></Input>
         </FormItem>
         <FormItem label="链接设置：">
-          <Input v-model="detail.name"></Input>
+          <Input v-model="config.tecSupportLink"></Input>
         </FormItem>
       </Form>
     </Content>
@@ -37,6 +30,7 @@
 
 <script>
 import qs from 'qs'
+import { mapState } from 'vuex'
 import JHeader from '@/components/group/j-header'
 import JImage from '@/components/group/j-image'
 export default {
@@ -44,28 +38,19 @@ export default {
     JHeader,
     JImage
   },
-  data () {
-    return {
-      detail: {}
-    }
+  computed: {
+    ...mapState(['config'])
+  },
+  created () {
+    if (!this.config.configId) this.$store.dispatch('getConfig')
   },
   methods: {
-    picChange (e) {
-      this.detail.log = e.src
-    },
-    add () {},
     submit () {
-      this.$http.request({
-        url: '/rest/api/agent/member/add',
-        data: qs.stringify(this.detail),
-        method: 'post'
-      }).then((res) => {
-        if (res.success) {
-          this.$Message.success('添加成功')
-        } else {
-          this.$Message.success(res.msg)
-        }
-      })
+      this.$store.dispatch('setConfig', qs.stringify(this.config))
+      let ctx = this
+      setTimeout(function () {
+        ctx.$Message.success('保存成功')
+      }, 1000)
     }
   }
 }
