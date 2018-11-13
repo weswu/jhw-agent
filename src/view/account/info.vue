@@ -27,6 +27,10 @@
         <FormItem label="联系地址：">
           <Input v-model="detail.address" placeholder="请输入联系地址"></Input>
         </FormItem>
+        <FormItem label="代理网址：">
+          <Input v-model="detail.bindUrl" placeholder="请输入代理网址" v-if="!bindUrl"></Input>
+          <span v-if="bindUrl">{{detail.bindUrl}}</span>
+        </FormItem>
         <FormItem label="加盟时间：" prop="cellphone">
           {{detail.addTime | time}}
         </FormItem>
@@ -50,10 +54,26 @@ export default {
   },
   computed: {
     detail () {
-      return this.$store.state.user
+      let user = this.$store.state.user
+      if (user.username !== '未登录') this.init(user)
+      return user
+    }
+  },
+  data () {
+    return {
+      count: 1,
+      bindUrl: false
     }
   },
   methods: {
+    init (detail) {
+      if (this.count === 1) {
+        if (detail.bindUrl) {
+          this.bindUrl = true
+        }
+        this.count = 2
+      }
+    },
     submit () {
       this.$http.request({
         url: '/rest/api/agent/agentEdit',
@@ -63,6 +83,8 @@ export default {
         if (res.success) {
           this.$Message.success('保存成功')
           this.$store.commit('setUser', this.detail)
+          this.count = 1
+          this.init(this.detail)
         } else {
           this.$Message.success(res.msg)
         }

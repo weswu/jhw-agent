@@ -195,7 +195,7 @@ const routers = [
             path: 'login',
             name: 'agent/login',
             meta: {
-              title: '客户登录设置',
+              title: '登录页面设置',
               showInMenu: true
             },
             component: () => import('@/view/agent/login')
@@ -204,7 +204,7 @@ const routers = [
             path: 'backstage',
             name: 'agent/backstage',
             meta: {
-              title: '客户后台设置',
+              title: '管理后台设置',
               showInMenu: true
             },
             component: () => import('@/view/agent/backstage')
@@ -213,7 +213,7 @@ const routers = [
             path: 'website',
             name: 'agent/website',
             meta: {
-              title: '客户网站设置',
+              title: '界面编辑设置',
               showInMenu: true
             },
             component: () => import('@/view/agent/website')

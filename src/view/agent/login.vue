@@ -1,18 +1,19 @@
 <template>
   <Layout class="j_layout_content j_form_detail">
-    <JHeader :title="'客户登录设置'" :tip="'温馨提醒：联系我们：139 6793 8189 帮您绑定登录网址'"/>
+    <JHeader :title="'登录页面设置'" :tip="'温馨提醒：联系我们：139 6793 8189 帮您绑定登录网址'"/>
     <Content>
       <Form :model="config" :label-width="130" ref="model">
-      <FormItem label="客户绑定域名：">
-        <Input v-model="config.bindUrl" placeholder="请输入客户绑定域名"></Input>
-      </FormItem>
+        <FormItem label="客户登录网址：">
+          <span style="color:#aaa">http://admin.{{user.bindUrl}}/manage_v4/login.html</span>
+          <a :href="'http://admin.'+user.bindUrl+'/manage_v4/login.html'" target="_blank" style="margin-left:15px;"><Button class="submit" style="width:70px;">打开</Button></a>
+        </FormItem>
         <FormItem label="登录页左上Logo：" style="margin-top:20px">
           <JImage :src="config.loginLogo1" @on-change="picChange" :width="104"/>
         </FormItem>
-        <FormItem label="登录页广告图：" style="margin-top:20px">
+        <FormItem label="登录页广告图：" style="margin-top:25px">
           <JImage :src="config.loginLogo2" @on-change="picChange1" :width="104"/>
         </FormItem>
-        <FormItem label="登录页右边Logo：" style="margin-top:20px">
+        <FormItem label="登录页右边Logo：" style="margin-top:25px">
           <JImage :src="config.loginLogo3" @on-change="picChange2" :width="104"/>
         </FormItem>
       </Form>
@@ -34,7 +35,7 @@ export default {
     JImage
   },
   computed: {
-    ...mapState(['config'])
+    ...mapState(['user', 'config'])
   },
   created () {
     if (!this.config.configId) this.$store.dispatch('getConfig')

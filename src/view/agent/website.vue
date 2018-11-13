@@ -1,8 +1,17 @@
 <template>
   <Layout class="j_layout_content j_form_detail">
-    <JHeader :title="'客户网站设置'" :tip="'温馨提醒：'"/>
+    <JHeader :title="'界面编辑设置'" :tip="'温馨提醒：'"/>
     <Content>
       <Form :model="config" :label-width="130" ref="model">
+        <FormItem label="界面编辑的网址：" style="color:#aaa">
+          http://pc.{{user.bindUrl}}/pc/design.html?layoutId=网站编号
+        </FormItem>
+        <FormItem label="客户网站预览网址：" style="color:#aaa">
+          http://pc.{{user.bindUrl}}/rest/site/网站编号/index
+        </FormItem>
+        <FormItem label="头部Logo：" style="margin-bottom:20px;padding-top:30px">
+          <JImage :src="config.designLogo1" @on-change="picChange" :width="104"/>
+        </FormItem>
         <FormItem label="" class="lan">
           <span>中文语言</span><span>英文语言</span>
         </FormItem>
@@ -39,12 +48,15 @@ export default {
     JImage
   },
   computed: {
-    ...mapState(['config'])
+    ...mapState(['user', 'config'])
   },
   created () {
     if (!this.config.configId) this.$store.dispatch('getConfig')
   },
   methods: {
+    picChange (e) {
+      this.config.designLogo1 = e.src
+    },
     submit () {
       this.$store.dispatch('setConfig', qs.stringify(this.config))
       let ctx = this
@@ -61,6 +73,7 @@ export default {
   width: 412px;
 }
 .lan{
+  margin-top:45px;
   span{
     width: 217px;
     display: inline-block;

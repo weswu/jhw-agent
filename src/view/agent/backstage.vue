@@ -1,8 +1,11 @@
 <template>
   <Layout class="j_layout_content j_form_detail">
-    <JHeader :title="'客户后台设置'" :tip="'温馨提醒：'"/>
+    <JHeader :title="'管理后台设置'" :tip="'温馨提醒：'"/>
     <Content>
       <Form :model="config" :label-width="130">
+        <FormItem label="客户后台网址：" style="color:#aaa">
+          http://admin.{{user.bindUrl}}/manage_v4/index.html#/
+        </FormItem>
         <FormItem label="公司Logo：" style="margin-bottom:20px">
           <JImage :src="config.manageLogo1" @on-change="picChange" :width="104"/>
         </FormItem>
