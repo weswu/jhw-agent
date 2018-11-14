@@ -21,7 +21,9 @@ export default new Vuex.Store({
       'addTime': 1540430568989
     },
     menuList: [],
-    config: {},
+    config: {
+      video: {}
+    },
     loading: false
   },
   getters: {
@@ -75,6 +77,11 @@ export default new Vuex.Store({
       }).then((res) => {
         if (res.success) {
           let data = res.attributes.data
+          data.video = {}
+          if (data.manageVideoLink) {
+            data.video = JSON.parse(data.manageVideoLink)
+          }
+          if (!data.manageVideoState) data.manageVideoState = '02'
           this.commit('setConfig', data)
         }
       })
@@ -87,6 +94,10 @@ export default new Vuex.Store({
       }).then((res) => {
         if (res.success) {
           let data = res.attributes.data
+          data.video = {}
+          if (data.manageVideoLink) {
+            data.video = JSON.parse(data.manageVideoLink)
+          }
           this.commit('setConfig', data)
         }
       })

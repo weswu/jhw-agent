@@ -31,15 +31,33 @@
         </FormItem>
       </Form>
       <Form :model="config" :label-width="130">
-        <FormItem label="视频教程：" style="margin-top:70px">
-          <RadioGroup v-model="config.manageVideoState">
-            <Radio label="01">开启</Radio>
-            <Radio label="02">关闭</Radio>
-            <Radio label="03">替换链接</Radio>
-          </RadioGroup>
-        </FormItem>
-        <FormItem label="联系地址：" v-if="config.manageVideoState === '03'">
-          <Input v-model="config.manageVideoLink" placeholder="请输入联系地址"></Input>
+        <FormItem label="后台视频教程：" style="margin:70px 0 30px 0">
+          <div class="vTitle">视频教程 - 教程中心：</div>
+          <Input v-model="config.video.vManage" placeholder="请输入视频链接"></Input>
+          <div class="vTitle">视频教程 - 安全设置：</div>
+          <Input v-model="config.video.vAccount" placeholder="请输入视频链接"></Input>
+          <div class="vTitle">视频教程 - 产品列表：</div>
+          <Input v-model="config.video.vPorduct" placeholder="请输入视频链接"></Input>
+          <div class="vTitle">视频教程 - 产品分类：</div>
+          <Input v-model="config.video.vPorductCategory" placeholder="请输入视频链接"></Input>
+          <div class="vTitle">视频教程 - 产品导入：</div>
+          <Input v-model="config.video.vImport" placeholder="请输入视频链接"></Input>
+          <div class="vTitle">视频教程 - 产品下载：</div>
+          <Input v-model="config.video.vDownload" placeholder="请输入视频链接"></Input>
+          <div class="vTitle">视频教程 - 新闻列表：</div>
+          <Input v-model="config.video.vNews" placeholder="请输入视频链接"></Input>
+          <div class="vTitle">视频教程 - 新闻分类：</div>
+          <Input v-model="config.video.vNewsCategory" placeholder="请输入视频链接"></Input>
+          <div class="vTitle">视频教程 - 站点数据管理：</div>
+          <Input v-model="config.video.vWebsite" placeholder="请输入视频链接"></Input>
+          <div class="vTitle">视频教程 - SEO管理：</div>
+          <Input v-model="config.video.vSeo" placeholder="请输入视频链接"></Input>
+          <div class="vTitle">视频教程 - Sitemap生成：</div>
+          <Input v-model="config.video.vSitemap" placeholder="请输入视频链接"></Input>
+          <div class="vTitle">视频教程 - 批量提交：</div>
+          <Input v-model="config.video.vSeoBatch" placeholder="请输入视频链接"></Input>
+          <div class="vTitle">视频教程 - 第三方统计：</div>
+          <Input v-model="config.video.vAnalysis" placeholder="请输入视频链接"></Input>
         </FormItem>
       </Form>
     </Content>
@@ -70,6 +88,7 @@ export default {
       this.config.manageLogo1 = e.src
     },
     submit () {
+      this.config.manageVideoLink = JSON.stringify(this.config.video)
       this.$store.dispatch('setConfig', qs.stringify(this.config))
       this.$store.dispatch('setUser', qs.stringify(this.user))
       let ctx = this
@@ -82,4 +101,7 @@ export default {
 </script>
 
 <style lang="less">
+.vTitle{
+  padding-left: 12px
+}
 </style>

@@ -29,6 +29,9 @@
         <FormItem label="链接设置：">
           <Input v-model="config.tecSupportLink"></Input>
         </FormItem>
+        <FormItem label="界面编辑教程：" style="margin-top:36px">
+          <Input v-model="config.video.vPc" placeholder="请输入视频链接"></Input>
+        </FormItem>
       </Form>
     </Content>
     <Footer>
@@ -58,6 +61,9 @@ export default {
       this.config.designLogo1 = e.src
     },
     submit () {
+      if (this.config.video.vPc) {
+        this.config.manageVideoLink = JSON.stringify(this.config.video)
+      }
       this.$store.dispatch('setConfig', qs.stringify(this.config))
       let ctx = this
       setTimeout(function () {
