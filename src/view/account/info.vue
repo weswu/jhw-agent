@@ -53,7 +53,7 @@ export default {
   },
   computed: {
     detail () {
-      return this.$store.state.userthis.$store.state.user
+      return this.$store.state.user
     }
   },
   methods: {

@@ -37,9 +37,9 @@
           <div class="vTitle">视频教程 - 安全设置：</div>
           <Input v-model="config.video.vAccount" placeholder="请输入视频链接"></Input>
           <div class="vTitle">视频教程 - 产品列表：</div>
-          <Input v-model="config.video.vPorduct" placeholder="请输入视频链接"></Input>
+          <Input v-model="config.video.vProduct" placeholder="请输入视频链接"></Input>
           <div class="vTitle">视频教程 - 产品分类：</div>
-          <Input v-model="config.video.vPorductCategory" placeholder="请输入视频链接"></Input>
+          <Input v-model="config.video.vProductCategory" placeholder="请输入视频链接"></Input>
           <div class="vTitle">视频教程 - 产品导入：</div>
           <Input v-model="config.video.vImport" placeholder="请输入视频链接"></Input>
           <div class="vTitle">视频教程 - 产品下载：</div>
@@ -58,6 +58,12 @@
           <Input v-model="config.video.vSeoBatch" placeholder="请输入视频链接"></Input>
           <div class="vTitle">视频教程 - 第三方统计：</div>
           <Input v-model="config.video.vAnalysis" placeholder="请输入视频链接"></Input>
+        </FormItem>
+        <FormItem label="文档：" style="margin:30px 0 30px 0">
+          <div class="vTitle">文档 - 建站资讯：</div>
+          <Input v-model="config.video.dNews" placeholder="请输入资讯链接"></Input>
+          <div class="vTitle">文档 - 更新日志：</div>
+          <Input v-model="config.video.dLog" placeholder="请输入日志链接"></Input>
         </FormItem>
       </Form>
     </Content>
