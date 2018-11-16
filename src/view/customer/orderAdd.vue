@@ -14,7 +14,7 @@
       </Form>
     </Content>
     <Footer>
-      <Button type="primary" size="small" @click="submit">保存</Button>
+      <Button type="primary" size="small" @click="submit">创建</Button>
     </Footer>
   </Layout>
 </template>

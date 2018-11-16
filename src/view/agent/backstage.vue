@@ -29,6 +29,9 @@
         <FormItem label="联系地址：">
           <Input v-model="user.address" placeholder="请输入联系地址"></Input>
         </FormItem>
+        <FormItem label="座机：">
+          <Input v-model="user.phone" placeholder="请输入座机"></Input>
+        </FormItem>
       </Form>
       <Form :model="config" :label-width="130">
         <FormItem label="后台视频教程：" style="margin:70px 0 30px 0">

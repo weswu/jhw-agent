@@ -2,7 +2,7 @@
   <Layout class="j_layout_content j_form_detail">
     <JHeader :title="'登录页面设置'" :tip="'温馨提醒：联系我们：139 6793 8189 帮您绑定登录网址'"/>
     <Content>
-      <Form :model="config" :label-width="130" ref="model">
+      <Form :model="config" :label-width="150" ref="model">
         <FormItem label="客户登录网址：">
           <span style="color:#aaa">http://admin.{{user.bindUrl}}/manage_v4/login.html</span>
           <a :href="'http://admin.'+user.bindUrl+'/manage_v4/login.html'" target="_blank" style="margin-left:15px;"><Button class="submit" style="width:70px;">打开</Button></a>
@@ -15,6 +15,9 @@
         </FormItem>
         <FormItem label="登录页右边Logo：" style="margin-top:25px">
           <JImage :src="config.loginLogo3" @on-change="picChange2" :width="104"/>
+        </FormItem>
+        <FormItem label="浏览器标签ico缩略图标：" style="margin-top:25px">
+          <JImage :src="config.ico" @on-change="picChange3" :width="104"/>
         </FormItem>
       </Form>
     </Content>
@@ -49,6 +52,9 @@ export default {
     },
     picChange2 (e) {
       this.config.loginLogo3 = e.src
+    },
+    picChange3 (e) {
+      this.config.ico = e.src
     },
     submit () {
       this.$store.dispatch('setConfig', qs.stringify(this.config))

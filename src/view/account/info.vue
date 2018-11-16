@@ -27,6 +27,9 @@
         <FormItem label="联系地址：">
           <Input v-model="detail.address" placeholder="请输入联系地址"></Input>
         </FormItem>
+        <FormItem label="座机：">
+          <Input v-model="detail.phone" placeholder="请输入座机"></Input>
+        </FormItem>
         <FormItem label="代理网址：">
           <span>{{detail.bindUrl}}</span>
         </FormItem>

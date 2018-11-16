@@ -277,7 +277,7 @@ export default {
           },
           on: {
             click: () => {
-              this.$router.push({ path: '/member/static/' + params.row.enterpriseId })
+              this.$router.push({ path: '/member/static/' + this.encodeId(params.row.enterpriseId) })
             }
           }
         }, '查看详情')
