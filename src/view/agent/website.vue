@@ -30,7 +30,7 @@
           <Input v-model="config.tecSupportLink"></Input>
         </FormItem>
         <FormItem label="界面编辑教程：" style="margin-top:36px">
-          <Input v-model="config.video.vPc" placeholder="请输入视频链接"></Input>
+          <Input v-model="config.video.vPc" placeholder="请输入视频链接"></Input><Button class="submit" @click="defalutVideo">默认</Button>
         </FormItem>
       </Form>
     </Content>
@@ -60,10 +60,11 @@ export default {
     picChange (e) {
       this.config.designLogo1 = e.src
     },
+    defalutVideo () {
+      this.$set(this.config.video, 'vPc', 'https://v.qq.com/x/page/b0766xub26n.html')
+    },
     submit () {
-      if (this.config.video.vPc) {
-        this.config.manageVideoLink = JSON.stringify(this.config.video)
-      }
+      this.config.manageVideoLink = JSON.stringify(this.config.video)
       this.$store.dispatch('setConfig', qs.stringify(this.config))
       let ctx = this
       setTimeout(function () {
@@ -91,5 +92,8 @@ export default {
     width: 195px;
     margin-right: 22px;
   }
+}
+.submit{
+  width:70px;
 }
 </style>

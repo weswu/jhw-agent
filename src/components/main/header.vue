@@ -4,7 +4,7 @@
       <div class="logo">
         <a href="http://www.jihui88.com"><img src="http://img.jihui88.com/upload/w/w5/www2/picture/2017/07/05/54b68a5c-fdd2-4842-9e1e-b88d1c403f28.png" height="30" alt=""></a>
       </div>
-      <span style="padding-left:14px">代理后台</span>
+      <span style="padding-left:14px;font-size: 16px;">代理后台</span>
     </Col>
     <Col class="userInfo">
       <Dropdown placement="bottom-end" class="j_dropdown_username">
