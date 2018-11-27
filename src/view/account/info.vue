@@ -1,5 +1,5 @@
 <template>
-  <Layout class="j_layout_content j_form_detail">
+  <Layout class="j_layout_content j_form_detail j_account_info">
     <JHeader :title="'基本信息'" :tip="'请完善以下信息，方便我们更好的为您服务'"/>
     <Content>
       <Form :model="detail" :label-width="130" ref="model">
@@ -28,10 +28,13 @@
           <Input v-model="detail.address" placeholder="请输入联系地址"></Input>
         </FormItem>
         <FormItem label="座机：">
-          <Input v-model="detail.phone" placeholder="请输入座机"></Input>
+          <Input v-model="detail.phone" placeholder="请输入座机"></Input><br/>
+          <div class="j_tip" style="display: inline-block;margin: 25px 0 7px 0;">
+            温馨提醒：请勿随意更改代理网址，以免影响绑定，如有问题，请联系13967938189
+          </div>
         </FormItem>
         <FormItem label="代理网址：">
-          <span>{{detail.bindUrl}}</span>
+          <Input v-model="detail.bindUrl" placeholder="请输入代理网址"></Input>
         </FormItem>
         <FormItem label="加盟时间：" prop="cellphone">
           {{detail.addTime | time}}
@@ -79,4 +82,9 @@ export default {
 </script>
 
 <style lang="less">
+.j_account_info{
+  .ivu-input-wrapper{
+    width: 400px;
+  }
+}
 </style>

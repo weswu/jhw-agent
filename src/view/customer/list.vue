@@ -5,13 +5,13 @@
       <div class="j_search">
         <Row type="flex" justify="space-between">
           <Col>
-            <Input v-model="searchData.searchKey" class="w180" clearable placeholder="请输入搜索内容"></Input>
+            <Input v-model="searchData.searchKey" class="w180" clearable placeholder="请输入搜索内容" @on-change="clearInput"></Input>
             <Button class="search" @click="search">搜索</Button>
           </Col>
           <Col>
             <span style="color:#999">选择注册时间段：</span>
             <DatePicker type="daterange" :options="options" split-panels @on-change="searchDate" style="width: 132px"></DatePicker>
-            <Button class="search" @click="get">搜索</Button>
+            <Button class="search" @click="search">搜索</Button>
           </Col>
         </Row>
       </div>
@@ -238,6 +238,12 @@ export default {
     searchDate (e) {
       this.searchData.startTime = e[0]
       this.searchData.endTime = e[1]
+    },
+    // 搜索
+    clearInput () {
+      if (this.searchData.searchKey === '') {
+        this.get()
+      }
     },
     submit () {
       let item = this.list[this.index]

@@ -1,5 +1,11 @@
 <template>
   <div id="A_Login" class="iframe_bg" :style="'display:' + display">
+    <div style="background: #383d41;">
+      <div class="logo">
+        <a href="http://www.jihui88.com" target="_blank"><img src="http://img.jihui88.com/upload/w/w5/www2/picture/2017/07/05/54b68a5c-fdd2-4842-9e1e-b88d1c403f28.png" height="30" alt=""></a>
+      </div>
+      <span style="padding-left:14px;font-size: 16px;">代理后台</span>
+    </div>
     <div class="iframe_login" ref="login">
       <div class="wrapper">
         <div class="form">
@@ -14,8 +20,8 @@
             <button type="button" class="submit" @click="submit" @keyup.enter="submit">登录</button>
           </div>
         </div>
-        <img src="http://www.jihui88.com/member/static/images/f-x.png" alt="close" @click="close" class="close">
       </div>
+      <div style="text-align: center;font-size: 12px;color: #aaa;">如有问题，欢迎咨询：13967938189</div>
     </div>
   </div>
 </template>
@@ -148,7 +154,7 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0,0,0,0.7);
+    background: #2a2a2a;
     overflow: hidden;
     z-index: 1000;
     transition: all .3s;
@@ -162,7 +168,7 @@ export default {
   z-index: 999;
   position: fixed;
   left: 50%;
-  top: 50%;
+  top: 48%;
   transform: translate(-50%,-50%);
   -o-transform: translate(-50%,-50%);
   -moz-transform: translate(-50%,-50%);

@@ -2,6 +2,9 @@
   <Layout class="j_layout_content">
     <JHeader :title="'站点列表'"></JHeader>
     <Content>
+      <div class="j_tip" style="margin-top:0">
+        温馨提醒：<a href="http://pc.jihui8.com/pc/admin.html" target="_blank">版块制作</a>
+      </div>
       <ul class="static_info j_scroll">
         <li class="item" v-for="item in list" :key="item.id">
           <p>
@@ -33,6 +36,7 @@
 </template>
 
 <script>
+import qs from 'qs'
 import { mapState } from 'vuex'
 import JHeader from '@/components/group/j-header'
 import JPagination from '@/components/group/j-pagination'
@@ -50,7 +54,8 @@ export default {
       searchData: {
         page: 1,
         pageSize: 4,
-        sortType: 'desc'
+        sortType: 'desc',
+        enterpriseId: ''
       },
       total: 0,
       onlineCount: 0,
@@ -70,8 +75,9 @@ export default {
   },
   methods: {
     get () {
+      this.searchData.enterpriseId = this.decodeId(this.$route.params.id, 'Enterp_', 32)
       this.$http.request({
-        url: '/rest/pc/api/baseLayout/listLayoutByEnterpriseId?enterpriseId=' + this.decodeId(this.$route.params.id, 'Enterp_', 32),
+        url: '/rest/pc/api/baseLayout/listLayoutByEnterpriseId?' + qs.stringify(this.searchData),
         method: 'get'
       }).then((res) => {
         if (res.success) {
@@ -128,7 +134,6 @@ export default {
 <style lang="less">
 
 .static_info{
-  margin-top: 20px;
   border-left: 1px solid #e9e9e9;
   border-right: 1px solid #e9e9e9;
   border-top: 1px solid #e9e9e9;

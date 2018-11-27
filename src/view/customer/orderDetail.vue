@@ -47,13 +47,15 @@ export default {
   methods: {
     get () {
       this.$http.request({
-        url: '/rest/api/agent/order/detail?orderId=' + this.decodeId(this.$route.params.id, 'AgentOrder_', 32)
+        url: '/rest/api/agent/order/detail?orderId=' + this.$route.params.id
       }).then((res) => {
         if (res.success) {
-          this.detail = res.attributes.data
+          let data = res.attributes.data
+          data.endTime = this.dateFormat(data.endTime, 'yyyy-MM-dd')
+          this.detail = data
         } else {
           this.detail = {
-            'endTime': 1543665647571,
+            'endTime': '2018-5-6',
             'username': 'jihui88',
             'amount': 0,
             'productType': 'pc',
@@ -81,7 +83,9 @@ export default {
         method: 'post'
       }).then((res) => {
         if (res.success) {
-          this.detail = res.attributes.data
+          let data = res.attributes.data
+          data.endTime = this.dateFormat(data.endTime, 'yyyy-MM-dd')
+          this.detail = data
         }
       })
     }
