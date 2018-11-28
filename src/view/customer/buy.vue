@@ -1,20 +1,7 @@
 <template>
   <Layout class="j_layout_content">
     <Content>
-      <JHeader :title="'产品订单列表'" :tip="'温馨提醒：'"/>
-      <div class="j_search">
-        <Row type="flex" justify="space-between">
-          <Col>
-            <Input v-model="searchData.searchkey" class="w180" clearable placeholder="请输入搜索内容" @on-change="clearInput"></Input>
-            <Button class="search" @click="search">搜索</Button>
-          </Col>
-          <Col>
-            <span style="color:#999">选择到期时间段：</span>
-            <DatePicker type="daterange" :options="options" split-panels @on-change="searchDate" style="width: 132px"></DatePicker>
-            <Button class="search" @click="search">搜索</Button>
-          </Col>
-        </Row>
-      </div>
+      <JHeader :title="'续费列表'"/>
       <Table ref="selection" :columns="columns" :data="list"/>
       <JPagination :total="total" :searchData='searchData' @on-change="get"/>
     </Content>
@@ -162,10 +149,9 @@ export default {
         style: {
           color: '#999'
         },
-        on: {
-          click: () => {
-            this.$router.push({ path: '/order/buy/' + params.row.orderId })
-          }
+        attrs: {
+          href: 'http://pc.jihui88.com/rest/site/' + params.row.productId + '/index',
+          target: '_blank'
         }
       }, '查看')
     },

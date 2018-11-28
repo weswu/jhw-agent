@@ -29,7 +29,7 @@
         </FormItem>
         <FormItem label="座机：">
           <Input v-model="detail.phone" placeholder="请输入座机"></Input><br/>
-          <div class="j_tip" style="display: inline-block;margin: 25px 0 7px 0;">
+          <div class="j_tip" style="display: inline-block;margin: 25px 0 7px 0;width: 400px">
             温馨提醒：请勿随意更改代理网址，以免影响绑定，如有问题，请联系13967938189
           </div>
         </FormItem>

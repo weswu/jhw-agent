@@ -19,7 +19,7 @@
           {{detail.addTime | time}}
         </FormItem>
         <FormItem label="到期时间：">
-          <DatePicker type="date" placeholder="到期时间" :value="detail.endTime" @on-change="detail.endTime=$event" style="width: 155px;"></DatePicker>
+          {{detail.endTime | time}}
         </FormItem>
       </Form>
     </Content>
@@ -51,7 +51,6 @@ export default {
       }).then((res) => {
         if (res.success) {
           let data = res.attributes.data
-          data.endTime = this.dateFormat(data.endTime, 'yyyy-MM-dd')
           this.detail = data
         } else {
           this.detail = {
@@ -84,8 +83,8 @@ export default {
       }).then((res) => {
         if (res.success) {
           let data = res.attributes.data
-          data.endTime = this.dateFormat(data.endTime, 'yyyy-MM-dd')
           this.detail = data
+          this.$Message.success('保存成功')
         }
       })
     }

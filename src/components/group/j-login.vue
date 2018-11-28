@@ -5,6 +5,7 @@
         <a href="http://www.jihui88.com" target="_blank"><img src="http://img.jihui88.com/upload/w/w5/www2/picture/2017/07/05/54b68a5c-fdd2-4842-9e1e-b88d1c403f28.png" height="30" alt=""></a>
       </div>
       <span style="padding-left:14px;font-size: 16px;">代理后台</span>
+      <a href="https://www.google.cn/chrome/" target="_blank" class="j_login_right">请用谷歌浏览器</a>
     </div>
     <div class="iframe_login" ref="login">
       <div class="wrapper">
@@ -191,5 +192,11 @@ export default {
     cursor: pointer;
     z-index: 99;
   }
+}
+.j_login_right{
+  float: right;
+  color: #888;
+  font-size: 12px;
+  margin-right: 20px;
 }
 </style>

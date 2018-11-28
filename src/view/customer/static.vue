@@ -3,7 +3,7 @@
     <JHeader :title="'站点列表'"></JHeader>
     <Content>
       <div class="j_tip" style="margin-top:0">
-        温馨提醒：<a href="http://pc.jihui8.com/pc/admin.html" target="_blank">版块制作</a>
+        温馨提醒：<a href="http://pc.jihui88.com/pc/admin.html" target="_blank">版块制作</a>
       </div>
       <ul class="static_info j_scroll">
         <li class="item" v-for="item in list" :key="item.id">

@@ -1,7 +1,7 @@
 <template>
   <Sider id="J_Sider" ref="side" hide-trigger collapsible :width="180" :collapsed-width="50" v-model="collapsed">
     <Header :style="{padding: 0}" class="layout-header-bar" @click.native="collapsedSider">
-      <Icon :class="rotateIcon" type="ios-menu" size="20"></Icon><Icon type="md-arrow-dropright" />
+      <Icon :class="rotateIcon" type="ios-menu" size="20"></Icon>
     </Header>
     <Menu ref="menu" theme="dark" width="auto" :class="menuitemClasses" :active-name="activeName" :open-names="openNames" @on-select="mrouter" accordion>
       <div v-for="item in menuList" :key="item.name">

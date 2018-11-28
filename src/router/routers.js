@@ -139,7 +139,7 @@ const routers = [
         name: 'order',
         meta: {
           icon: 'liebiao',
-          title: '客户订单列表',
+          title: '产品订单列表',
           showInMenu: true,
           manage: 'order/list'
         },
@@ -149,10 +149,22 @@ const routers = [
             path: 'list',
             name: 'order/list',
             meta: {
-              title: '客户订单列表',
+              title: '产品订单列表',
               showInMenu: true
             },
             component: () => import('@/view/customer/orderList')
+          },
+          {
+            path: 'buy/:id',
+            name: 'order/buy',
+            meta: {
+              title: '续费列表',
+              detail: true,
+              menu: [
+                { text: '基本信息', value: '0' }
+              ]
+            },
+            components: require('@/view/customer/buy')
           },
           {
             path: 'detail/:id',

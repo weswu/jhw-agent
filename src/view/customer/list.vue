@@ -56,7 +56,7 @@ export default {
         { title: '注册时间', key: 'addTime', render: this.dataFilter },
         { title: '状态', key: 'state', maxWidth: 100, render: this.stateFilter },
         { title: '生成的站点', key: 'layoutId', render: this.staticFilter },
-        { title: '操作', className: 'j_table_operate', width: 190, render: this.renderOperate }
+        { title: '操作', className: 'j_table_operate', width: 210, render: this.renderOperate }
       ],
       list: [],
       listTest: [
@@ -331,7 +331,7 @@ export default {
               this.$router.push({ path: '/member/order/' + this.encodeId(params.row.userId) })
             }
           }
-        }, '创建')
+        }, '添加产品')
       ])
     }
   }
