@@ -44,8 +44,8 @@ export default {
         { title: '续费列表', render: this.buyFilter },
         { title: '操作', className: 'j_table_operate', width: 80, render: this.renderOperate }
       ],
-      listTest: [],
-      list: [
+      list: [],
+      listTest: [
         {
           'endTime': 1543665647571,
           'username': 'jihui88',
@@ -57,7 +57,8 @@ export default {
           'orderSn': '1541073644',
           'orderId': 'OrderAgent_000000000000000000001',
           'productName': '网站(展示)',
-          'agentId': 'User_000000000000000000000006291'
+          'agentId': 'User_000000000000000000000006291',
+          'orderStatus': '00'
         }
       ],
       name: '',
@@ -155,7 +156,11 @@ export default {
       }, '查看')
     },
     stateFilter (h, params) {
-      return h('span', params.row.state === '01' ? '正常' : (params.row.state === '00' ? '未审核' : '审核未通过'))
+      let text = ''
+      if (params.row.orderStatus === '00') text = '未审核'
+      if (params.row.orderStatus === '01') text = '审核通过'
+      if (params.row.orderStatus === '02') text = '审核未通过'
+      return h('span', text)
     },
     buyFilter (h, params) {
       return h('a', {

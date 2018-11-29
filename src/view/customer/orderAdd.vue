@@ -16,7 +16,7 @@
         </FormItem>
         <FormItem label="开通年限：">
           <Select v-model="detail.year" class="w180" placeholder="请选择开通年限">
-            <Option value="0">1</Option>
+            <Option value="1">1</Option>
             <Option value="2">2</Option>
             <Option value="3">3</Option>
             <Option value="4">4</Option>

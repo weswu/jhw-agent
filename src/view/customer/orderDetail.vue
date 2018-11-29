@@ -73,8 +73,7 @@ export default {
       let data = {
         orderId: this.detail.orderId,
         amount: this.detail.amount,
-        productName: this.detail.productName,
-        endTime: this.detail.endTime
+        productName: this.detail.productName
       }
       this.$http.request({
         url: '/rest/api/agent/order/edit',
@@ -82,8 +81,6 @@ export default {
         method: 'post'
       }).then((res) => {
         if (res.success) {
-          let data = res.attributes.data
-          this.detail = data
           this.$Message.success('保存成功')
         }
       })

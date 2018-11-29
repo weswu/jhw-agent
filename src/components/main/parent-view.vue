@@ -84,7 +84,8 @@ export default {
     },
     mrouter (name) {
       if (this.detail) {
-        this.$emit('on-change', name)
+        this.activeName = name
+        this.$children[0].$children[1].active = name
       } else {
         this.$router.push({ path: '/' + name })
       }

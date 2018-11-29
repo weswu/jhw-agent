@@ -115,7 +115,7 @@ const routers = [
               title: '站点',
               detail: true,
               menu: [
-                { text: '基本信息', value: '0' }
+                { text: '站点列表', value: '0' }
               ]
             },
             components: require('@/view/customer/static')
@@ -127,7 +127,7 @@ const routers = [
               title: '站点',
               detail: true,
               menu: [
-                { text: '基本信息', value: '0' }
+                { text: '添加产品', value: '0' }
               ]
             },
             components: require('@/view/customer/orderAdd')
@@ -161,7 +161,8 @@ const routers = [
               title: '续费列表',
               detail: true,
               menu: [
-                { text: '基本信息', value: '0' }
+                { text: '续费列表', value: '0' },
+                { text: '添加续费', value: '1' }
               ]
             },
             components: require('@/view/customer/buy')
@@ -173,7 +174,7 @@ const routers = [
               title: ' ',
               detail: true,
               menu: [
-                { text: '基本信息', value: '0' }
+                { text: '订单详情', value: '0' }
               ]
             },
             components: require('@/view/customer/orderDetail')
