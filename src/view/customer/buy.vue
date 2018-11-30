@@ -31,6 +31,10 @@
             <Option value="3">3</Option>
             <Option value="4">4</Option>
             <Option value="5">5</Option>
+            <Option value="6">6</Option>
+            <Option value="7">7</Option>
+            <Option value="8">8</Option>
+            <Option value="9">9</Option>
             <Option value="10">10</Option>
           </Select><span class="j_unit">年</span>
         </FormItem>
@@ -66,6 +70,7 @@ export default {
         { title: '使用年限', key: 'year' },
         { title: '购买时间', render: this.dataFilter },
         { title: '到期时间', render: this.endTimeFilter },
+        { title: '审核状态', render: this.stateFilter },
         { title: '操作', className: 'j_table_operate', width: 80, render: this.renderOperate }
       ],
       list: [],
@@ -74,7 +79,7 @@ export default {
           'endTime': 1543665647571, // 到期时间
           'username': 'jihui88', // 账号
           'amount': 0, // 金额
-          'productType': 'pc',  // 产品类型
+          'productType': 'pc', // 产品类型
           'userId': 'User_000000000000000000000001220',
           'productId': '1326',
           'addTime': 1541073644760,
@@ -152,8 +157,9 @@ export default {
       this.modal = true
     },
     submit () {
+      this.detail.orderId = this.$route.params.id
       this.$http.request({
-        url: '/rest/api/agent/order/add',
+        url: '/rest/api/agent/order/addRenew',
         data: qs.stringify(this.detail),
         method: 'post'
       }).then((res) => {
@@ -184,7 +190,7 @@ export default {
     },
     // 过滤
     nameFilter (h, params) {
-      return h('span', params.row.enterprise.name || '')
+      return h('span', params.row.user.enterprise.name || '')
     },
     // 时间格式化
     dataFilter (h, params) {
@@ -192,6 +198,13 @@ export default {
     },
     endTimeFilter (h, params) {
       return h('div', this.dateFormat(params.row.endTime))
+    },
+    stateFilter (h, params) {
+      let text = ''
+      if (params.row.orderStatus === '00') text = '未审核'
+      if (params.row.orderStatus === '01') text = '审核通过'
+      if (params.row.orderStatus === '02') text = '审核未通过'
+      return h('span', text)
     },
     renderOperate (h, params) {
       return h('div', [

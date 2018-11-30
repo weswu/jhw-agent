@@ -34,6 +34,7 @@ export default {
     return {
       columns: [
         { title: '企业账号', key: 'username', className: 'text-color', ellipsis: true },
+        { title: '公司名称', className: 'text-color', render: this.nameFilter },
         { title: '订单编号', key: 'orderSn', className: 'text-color' },
         { title: '产品名称', key: 'productName' },
         { title: '创建时间', key: 'addTime', render: this.dataFilter },
@@ -135,7 +136,7 @@ export default {
     },
     // 过滤
     nameFilter (h, params) {
-      return h('span', params.row.enterprise.name || '')
+      return h('span', params.row.user.enterprise.name || '')
     },
     // 时间格式化
     dataFilter (h, params) {

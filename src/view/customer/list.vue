@@ -52,7 +52,7 @@ export default {
       enterpriseName: '',
       columns: [
         { title: '企业账号', key: 'username', className: 'text-color', ellipsis: true },
-        { title: '名称', key: 'enterprise.name', className: 'text-color', render: this.nameFilter },
+        { title: '公司名称', className: 'text-color', render: this.nameFilter },
         { title: '注册时间', key: 'addTime', render: this.dataFilter },
         { title: '状态', key: 'state', maxWidth: 100, render: this.stateFilter },
         { title: '生成的站点', key: 'layoutId', render: this.staticFilter },

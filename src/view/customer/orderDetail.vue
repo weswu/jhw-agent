@@ -6,6 +6,9 @@
         <FormItem label="账号：">
           {{detail.username}}
         </FormItem>
+        <FormItem label="公司名称：">
+          {{detail.user.enterprise.name || ''}}
+        </FormItem>
         <FormItem label="订单编号：">
           {{detail.orderSn}}
         </FormItem>
@@ -38,7 +41,11 @@ export default {
   },
   data () {
     return {
-      detail: {}
+      detail: {
+        user: {
+          enterprise: {}
+        }
+      }
     }
   },
   created () {
@@ -52,20 +59,6 @@ export default {
         if (res.success) {
           let data = res.attributes.data
           this.detail = data
-        } else {
-          this.detail = {
-            'endTime': '2018-5-6',
-            'username': 'jihui88',
-            'amount': 0,
-            'productType': 'pc',
-            'userId': 'User_000000000000000000000001220',
-            'productId': '1326',
-            'addTime': 1541073644760,
-            'orderSn': '1541073644',
-            'orderId': 'AgentOrder_000000000000000000001',
-            'productName': '网站(展示)',
-            'agentId': 'User_000000000000000000000006291'
-          }
         }
       })
     },
