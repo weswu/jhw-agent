@@ -10,7 +10,7 @@
           </Col>
           <Col>
             <span style="color:#999">选择到期时间段：</span>
-            <DatePicker type="daterange" :options="options" split-panels @on-change="searchDate" style="width: 132px"></DatePicker>
+            <DatePicker type="daterange" :options="options" split-panels @on-change="searchDate"></DatePicker>
             <Button class="search" @click="search">搜索</Button>
           </Col>
         </Row>
@@ -23,6 +23,7 @@
 
 <script>
 import qs from 'qs'
+import { mapState } from 'vuex'
 import JHeader from '@/components/group/j-header'
 import JPagination from '@/components/group/j-pagination'
 export default {
@@ -39,6 +40,7 @@ export default {
         { title: '产品名称', key: 'productName' },
         { title: '创建时间', key: 'addTime', render: this.dataFilter },
         { title: '站点', render: this.staticFilter },
+        { title: '站点名称', key: 'seoTitle' },
         { title: '金额', key: 'amount' },
         { title: '到期时间', key: 'addTime', render: this.endTimeFilter },
         { title: '审核状态', render: this.stateFilter },
@@ -104,6 +106,9 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapState(['user'])
+  },
   created () {
     this.get()
   },
@@ -146,12 +151,13 @@ export default {
       return h('div', this.dateFormat(params.row.endTime))
     },
     staticFilter (h, params) {
+      let host = 'http://pc.' + this.user.bindUrl
       return h('a', {
         style: {
           color: '#999'
         },
         attrs: {
-          href: 'http://pc.jihui88.com/rest/site/' + params.row.productId + '/index',
+          href: host + '/rest/site/' + params.row.productId + '/index',
           target: '_blank'
         }
       }, '查看')

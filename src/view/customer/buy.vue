@@ -11,7 +11,7 @@
             </Col>
             <Col>
               <span style="color:#999">选择到期时间段：</span>
-              <DatePicker type="daterange" :options="options" split-panels @on-change="searchDate" style="width: 132px"></DatePicker>
+              <DatePicker type="daterange" :options="options" split-panels @on-change="searchDate"></DatePicker>
               <Button class="search" @click="search">搜索</Button>
             </Col>
           </Row>
@@ -21,6 +21,15 @@
       </div>
 
       <Form :model="detail" :label-width="130" v-if="active === '1'">
+        <FormItem label="公司名称：">
+          <Input v-model="detail.enterpriseName" placeholder="请输入公司名称"></Input>
+        </FormItem>
+        <FormItem label="站点编号：">
+          <Input v-model="detail.layoutId" placeholder="请输入站点编号"></Input>
+        </FormItem>
+        <FormItem label="站点名称：">
+          <Input v-model="detail.seoTitle" placeholder="请输入站点名称"></Input>
+        </FormItem>
         <FormItem label="金额：">
           <InputNumber v-model="detail.amount" placeholder="请输入金额"></InputNumber>
         </FormItem>

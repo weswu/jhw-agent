@@ -10,7 +10,7 @@
           </Col>
           <Col>
             <span style="color:#999">选择注册时间段：</span>
-            <DatePicker type="daterange" :options="options" split-panels @on-change="searchDate" style="width: 132px"></DatePicker>
+            <DatePicker type="daterange" :options="options" split-panels @on-change="searchDate"></DatePicker>
             <Button class="search" @click="search">搜索</Button>
           </Col>
         </Row>
