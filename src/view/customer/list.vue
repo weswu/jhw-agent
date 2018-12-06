@@ -10,7 +10,7 @@
           </Col>
           <Col>
             <span style="color:#999">选择注册时间段：</span>
-            <DatePicker type="daterange" :options="options" split-panels @on-change="searchDate"></DatePicker>
+            <DatePicker type="daterange" :options="options" split-panels clearable @on-clear="clearTime" @on-change="searchDate"></DatePicker>
             <Button class="search" @click="search">搜索</Button>
           </Col>
         </Row>
@@ -215,11 +215,20 @@ export default {
       }
     }
   },
-  created () {
-    this.get()
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      if (!from.meta.detail) {
+        window.localStorage.setItem('memberPage', 1)
+      } else {
+        vm.searchData.page = parseInt(window.localStorage.getItem('memberPage')) || 1
+      }
+      vm.get()
+    })
   },
   methods: {
     get () {
+      debugger
+      window.localStorage.setItem('memberPage', this.searchData.page)
       this.$http.request({
         url: '/rest/api/agent/member/list?' + qs.stringify(this.searchData),
         method: 'get'
@@ -244,6 +253,11 @@ export default {
       if (this.searchData.searchKey === '') {
         this.get()
       }
+    },
+    clearTime () {
+      this.searchData.startTime = ''
+      this.searchData.endTime = ''
+      this.get()
     },
     submit () {
       let item = this.list[this.index]

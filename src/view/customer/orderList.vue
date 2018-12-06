@@ -10,7 +10,7 @@
           </Col>
           <Col>
             <span style="color:#999">选择到期时间段：</span>
-            <DatePicker type="daterange" :options="options" split-panels @on-change="searchDate"></DatePicker>
+            <DatePicker type="daterange" :options="options" split-panels clearable @on-clear="clearTime" @on-change="searchDate"></DatePicker>
             <Button class="search" @click="search">搜索</Button>
           </Col>
         </Row>
@@ -109,11 +109,19 @@ export default {
   computed: {
     ...mapState(['user'])
   },
-  created () {
-    this.get()
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      if (!from.meta.detail) {
+        window.localStorage.setItem('orderPage', 1)
+      } else {
+        vm.searchData.page = parseInt(window.localStorage.getItem('orderPage')) || 1
+      }
+      vm.get()
+    })
   },
   methods: {
     get () {
+      window.localStorage.setItem('orderPage', this.searchData.page)
       this.$http.request({
         url: '/rest/api/agent/order/list?' + qs.stringify(this.searchData),
         method: 'get'
@@ -138,6 +146,11 @@ export default {
       if (this.searchData.searchkey === '') {
         this.get()
       }
+    },
+    clearTime () {
+      this.searchData.startTime = ''
+      this.searchData.endTime = ''
+      this.get()
     },
     // 过滤
     nameFilter (h, params) {
