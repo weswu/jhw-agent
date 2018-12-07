@@ -25,11 +25,29 @@
           </p>
           <p class="more">
             <a :href="'http://pc.' + user.bindUrl + '/pc/design.html?layoutId=' + item.id" target="_blank" class="a_underline">进入编辑</a>
+            <Poptip placement="top" class="j_poptip_ul">
+              <span class="a_underline">更多选项</span>
+              <ul slot="content">
+                <li @click="del(item.id)"> 删除网站 </li>
+              </ul>
+            </Poptip>
           </p>
         </li>
       </ul>
       <JPagination :fixed="true" :total="total" :searchData='searchData' @on-change="get"></JPagination>
     </Content>
+    <Modal v-model="modalDel" width="360" class-name="vertical-center-modal">
+      <p slot="header" style="color:#f60;text-align:center">
+        <Icon type="ios-information-circle"></Icon>
+        <span>请谨慎！</span>
+      </p>
+      <div style="text-align:left;text-indent: 25px;line-height: 1.7;">
+        <p>站点（网站编号：{{id}}）将会被彻底删除，站点（网站编号：{{id}}）下的网站页面内容、到期时间等将永久失效（注：公司信息、产品、相册及新闻将会保留）。不建议删除未到期的站点。如果您真的确定要删除站点，请点击【确认】。</p>
+      </div>
+      <div slot="footer">
+        <Button type="error" size="large" long :loading="modal_loading" @click="delItem">确认</Button>
+      </div>
+    </Modal>
   </Layout>
 </template>
 
@@ -49,6 +67,23 @@ export default {
   data () {
     return {
       list: [],
+      listTest: [
+        {
+          id: '99',
+          seoTitle: '我的网站',
+          new: false,
+          state: '00',
+          url: '',
+          language: '1',
+          count: 1,
+          country: 'cn',
+          bind: {
+            address: '',
+            country: 'cn',
+            online: '01'
+          }
+        }
+      ],
       searchData: {
         page: 1,
         pageSize: 4,
@@ -65,7 +100,10 @@ export default {
         { text: '中国', value: 'cn' },
         { text: '美国', value: 'en' },
         { text: '香港', value: 'hc' }
-      ]
+      ],
+      id: '',
+      modalDel: false,
+      modal_loading: false
     }
   },
   created () {
@@ -89,6 +127,26 @@ export default {
           })
           this.list = res.attributes.data
           this.onlineCount = res.attributes.onlineCount
+        }
+      })
+    },
+    del (id) {
+      this.id = id
+      this.modalDel = true
+    },
+    delItem () {
+      this.modal_loading = true
+      this.$http.request({
+        url: '/rest/api/agent/order/closeLayout?layoutId=' + this.id,
+        method: 'post'
+      }).then((res) => {
+        this.modal_loading = false
+        if (res.success) {
+          this.$Message.success('删除成功')
+          this.modalDel = false
+          this.get()
+        } else {
+          this.$Message.success(res.msg)
         }
       })
     },
@@ -131,6 +189,14 @@ export default {
 
 <style lang="less">
 
+.vertical-center-modal{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .ivu-modal{
+    top: 0;
+  }
+}
 .static_info{
   border-left: 1px solid #e9e9e9;
   border-right: 1px solid #e9e9e9;

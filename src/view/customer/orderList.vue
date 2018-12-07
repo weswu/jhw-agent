@@ -15,7 +15,7 @@
           </Col>
         </Row>
       </div>
-      <Table ref="selection" :columns="columns" :data="list"/>
+      <Table highlight-row ref="selection" :columns="columns" :data="list"/>
       <JPagination :total="total" :searchData='searchData' @on-change="get"/>
     </Content>
   </Layout>
@@ -113,6 +113,7 @@ export default {
     next(vm => {
       if (!from.meta.detail) {
         window.localStorage.setItem('orderPage', 1)
+        window.localStorage.setItem('orderIndex', '')
       } else {
         vm.searchData.page = parseInt(window.localStorage.getItem('orderPage')) || 1
       }
@@ -128,7 +129,14 @@ export default {
       }).then((res) => {
         if (res.success) {
           this.total = res.attributes.count
-          this.list = res.attributes.data
+          let data = res.attributes.data
+          let idx = parseInt(window.localStorage.getItem('orderIndex'))
+          data.forEach((item, index) => {
+            if (idx === index) {
+              item._highlight = true
+            }
+          })
+          this.list = data
         }
       })
     },
@@ -180,6 +188,7 @@ export default {
       if (params.row.orderStatus === '00') text = '未审核'
       if (params.row.orderStatus === '01') text = '审核通过'
       if (params.row.orderStatus === '02') text = '审核未通过'
+      if (params.row.orderStatus === '03') text = '已删除（恢复）'
       return h('span', text)
     },
     buyFilter (h, params) {
@@ -189,6 +198,7 @@ export default {
         },
         on: {
           click: () => {
+            window.localStorage.setItem('orderIndex', params.index)
             this.$router.push({ path: '/order/buy/' + params.row.orderId })
           }
         }
@@ -199,6 +209,7 @@ export default {
         h('a', {
           on: {
             click: () => {
+              window.localStorage.setItem('orderIndex', params.index)
               this.$router.push({ path: '/order/detail/' + params.row.orderId })
             }
           }

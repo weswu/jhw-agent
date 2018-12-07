@@ -15,7 +15,7 @@
           </Col>
         </Row>
       </div>
-      <Table ref="selection" :columns="columns" :data="list"/>
+      <Table highlight-row ref="selection" :columns="columns" :data="list"/>
       <JPagination :total="total" :searchData='searchData' @on-change="get"/>
     </Content>
     <Modal
@@ -106,66 +106,61 @@ export default {
           'nickName': 'jhweyjwv',
           'email': null,
           'enterprise': {
-            'address': '',
-            'name': 'AAAA',
-            'key': null,
-            'type': '  ',
-            'annualImport': null,
-            'mainBusiness': null,
-            'annualExport': null,
-            'registeredCapital': null,
-            'legalPersonCellphone': null,
-            'businessPattern': null,
-            'siteServiceType': null,
-            'businessType': null,
-            'annualTurnover': null,
-            'domainCertPic': null,
-            'qualityControl': null,
-            'legalPersonIdNumber': null,
-            'legalPersonBust': null,
-            'bankAccount': null,
-            'redicpNumber': null,
-            'legalPersonPhoto': null,
-            'factoryArea': null,
-            'icon': null,
-            'enterpriseId': 'Enterp_0000000000000000000005980',
-            'edesc': null,
-            'url': 'admin.jihui88.com/site/jhweyjwv',
-            'userId': 'User_000000000000000000000006290',
-            'email': null,
-            'icp': null,
-            'lanId': 1,
-            'industry': '',
-            'phone': null,
-            'regTime': null,
-            'legalPre': null,
-            'staffSum': null,
-            'dist': null,
-            'rdSum': null,
-            'broadcast': null,
-            'ipadSite': null,
-            'entAddress': '未填写',
-            'mobileCode': null,
-            'qasyscert': null,
-            'bank': null,
-            'gsbsEjym': null,
-            'logo': null,
-            'brand': null,
-            'tel400true': null,
-            'sincerity': null,
-            'customer': null,
-            'monthProd': null,
-            'oem': null,
-            'guess': null,
-            'mapaddress': null,
-            'gsbsZym': null,
-            'market': null,
-            'mobileSite': null,
-            'tel400': null,
-            'certType': null,
-            'certNumber': null,
-            'psr': null,
-            'certPic': null
+            'name': 'AAAA'
+          },
+          'phone': null,
+          'fax': null,
+          'dist': null,
+          'entUrl': 'http://admin.jihui88.com/site/jhweyjwv',
+          'userType': null
+        },
+        {
+          'address': null,
+          'name': null,
+          'state': '01',
+          'type': '01',
+          'country': null,
+          'version': null,
+          'position': null,
+          'domain': 'admin.jihui88.com',
+          'username': 'jhweyjwv',
+          'password': 'e10adc3949ba59abbe56e057f20f883e',
+          'posterId': null,
+          'cellphone': null,
+          'sex': null,
+          'code': null,
+          'qqfromOauth': '',
+          'weixinFromOauth': '',
+          'pcSitePayTime': null,
+          'pwdQuestion': null,
+          'mobileSitePayTime': null,
+          'enterpriseId': 'Enterp_0000000000000000000005980',
+          'wcdMember': null,
+          'sitemap': null,
+          'score': null,
+          'phone24': null,
+          'zipcode': null,
+          'pcode': null,
+          'codestate': null,
+          'robotsurl': null,
+          'jsonstr': null,
+          'url2': null,
+          'password2': '',
+          'vericode': 'd27rk60jxl72egcwprpdk52oyjrir24k',
+          'pwdAnswer': null,
+          'weixin': null,
+          'agentId': 'User_000000000000000000000001219',
+          'weibo': null,
+          'qq': null,
+          'msn': null,
+          'addTime': 1540456190748,
+          'url': null,
+          'grade': '00',
+          'userId': 'User_000000000000000000000006290',
+          'nickName': 'jhweyjwv',
+          'email': null,
+          'enterprise': {
+            'name': 'AAAA'
           },
           'phone': null,
           'fax': null,
@@ -219,6 +214,7 @@ export default {
     next(vm => {
       if (!from.meta.detail) {
         window.localStorage.setItem('memberPage', 1)
+        window.localStorage.setItem('memberIndex', '')
       } else {
         vm.searchData.page = parseInt(window.localStorage.getItem('memberPage')) || 1
       }
@@ -227,7 +223,6 @@ export default {
   },
   methods: {
     get () {
-      debugger
       window.localStorage.setItem('memberPage', this.searchData.page)
       this.$http.request({
         url: '/rest/api/agent/member/list?' + qs.stringify(this.searchData),
@@ -235,7 +230,14 @@ export default {
       }).then((res) => {
         if (res.success) {
           this.total = res.attributes.count
-          this.list = res.attributes.data
+          let data = res.attributes.data
+          let idx = parseInt(window.localStorage.getItem('memberIndex'))
+          data.forEach((item, index) => {
+            if (idx === index) {
+              item._highlight = true
+            }
+          })
+          this.list = data
         }
       })
     },
@@ -297,6 +299,7 @@ export default {
           },
           on: {
             click: () => {
+              window.localStorage.setItem('memberIndex', params.index)
               this.$router.push({ path: '/member/static/' + this.encodeId(params.row.enterpriseId) })
             }
           }
@@ -342,6 +345,7 @@ export default {
         h('a', {
           on: {
             click: () => {
+              window.localStorage.setItem('memberIndex', params.index)
               this.$router.push({ path: '/member/order/' + this.encodeId(params.row.userId) })
             }
           }
