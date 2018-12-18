@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <Layout style="height:100%">
     <Header/>
     <Layout class="ivu-layout-has-sider main">
       <Sider></Sider>

@@ -188,7 +188,7 @@ export default {
       if (params.row.orderStatus === '00') text = '未审核'
       if (params.row.orderStatus === '01') text = '审核通过'
       if (params.row.orderStatus === '02') text = '审核未通过'
-      if (params.row.orderStatus === '03') text = '已删除（恢复）'
+      if (params.row.orderStatus === '03') text = '已删除'
       return h('span', text)
     },
     buyFilter (h, params) {

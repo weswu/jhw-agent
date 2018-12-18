@@ -28,6 +28,13 @@
             <Poptip placement="top" class="j_poptip_ul">
               <span class="a_underline">更多选项</span>
               <ul slot="content">
+                <Poptip placement="right" width="200"
+                  confirm
+                  title="是否关闭网站？"
+                  @on-ok="closeStatic(item.id)">
+                  <li> 关闭网站 </li>
+                </Poptip>
+                <li @click="openStatic(item.id)"> 恢复网站 </li>
                 <li @click="del(item.id)"> 删除网站 </li>
               </ul>
             </Poptip>
@@ -137,7 +144,7 @@ export default {
     delItem () {
       this.modal_loading = true
       this.$http.request({
-        url: '/rest/api/agent/order/closeLayout?layoutId=' + this.id,
+        url: '/rest/api/agent/order/deleteLayout?layoutId=' + this.id,
         method: 'post'
       }).then((res) => {
         this.modal_loading = false
@@ -150,11 +157,35 @@ export default {
         }
       })
     },
+    closeStatic (id) {
+      this.$http.request({
+        url: '/rest/api/agent/order/closeLayout?layoutId=' + id,
+        method: 'post'
+      }).then((res) => {
+        if (res.success) {
+          this.$Message.success('关闭网站成功')
+          this.get()
+        } else {
+          this.$Message.success(res.msg)
+        }
+      })
+    },
+    openStatic (id) {
+      this.$http.request({
+        url: '/rest/api/agent/order/openLayout?layoutId=' + id,
+        method: 'post'
+      }).then((res) => {
+        if (res.success) {
+          this.$Message.success('恢复网站成功')
+          this.get()
+        } else {
+          this.$Message.success(res.msg)
+        }
+      })
+    },
     // 过滤
     lanFilter (val) {
       let text = ''
-      if (val === '0') text = '<span class="type">未开通</span>'
-      if (val === '1') text = '<span class="type">已开通</span>'
       this.lanList.forEach(item => {
         if (item.value === val) {
           text = item.text
@@ -166,6 +197,8 @@ export default {
       let text = ''
       if (val === '0') text = '<span class="type">未开通</span>'
       if (val === '1') text = '<span class="type">已开通</span>'
+      if (val === '3') text = '<span class="type">已删除</span>'
+      if (val === '4') text = '<span class="type">已关闭</span>'
       return text
     },
     onlineFilter (val) {
@@ -188,7 +221,6 @@ export default {
 </script>
 
 <style lang="less">
-
 .vertical-center-modal{
   display: flex;
   align-items: center;
@@ -202,6 +234,9 @@ export default {
   border-right: 1px solid #e9e9e9;
   border-top: 1px solid #e9e9e9;
   color: #b9b9b9;
+  .j_poptip_ul .ivu-poptip-body .ivu-poptip-body {
+      padding: 16px 16px 8px;
+  }
   .ivu-badge{
     color: #777;
     padding-right: 5px;
