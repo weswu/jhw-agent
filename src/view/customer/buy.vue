@@ -1,6 +1,6 @@
 <template>
   <Layout class="j_layout_content">
-    <JHeader :title="$route.meta.menu[active].text"/>
+    <JHeader :title="$route.meta.menu[active].text" :tip="'温馨提醒：可搜索内容为“企业账号”、“产品名称”'"/>
     <Content>
       <div v-if="active === '0'">
         <div class="j_search">

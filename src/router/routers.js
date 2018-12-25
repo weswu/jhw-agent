@@ -230,6 +230,15 @@ const routers = [
               showInMenu: true
             },
             component: () => import('@/view/agent/website')
+          },
+          {
+            path: 'miniprogram',
+            name: 'agent/miniprogram',
+            meta: {
+              title: '小程序后台设置',
+              showInMenu: false
+            },
+            component: () => import('@/view/agent/miniprogram')
           }
         ]
       }

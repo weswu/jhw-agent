@@ -13,6 +13,8 @@
               {{item.id}}
               &nbsp;&nbsp;/&nbsp;&nbsp;
               语言：<span v-html="lanFilter(item.language)"></span>
+              <span>&nbsp;&nbsp;/&nbsp;&nbsp;
+              版本：{{item.siteVersion}}</span>
               )</span>
             <!-- 状态 -->
             <span v-html="stateFilter(item.state)"></span>

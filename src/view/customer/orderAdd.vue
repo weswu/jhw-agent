@@ -3,8 +3,8 @@
     <JHeader :title="'添加产品'"></JHeader>
     <Content>
       <Form :model="detail" :label-width="130" ref="modalForm">
-        <FormItem label="公司名称：">
-          <Input v-model="detail.enterpriseName" placeholder="请输入公司名称"></Input>
+        <FormItem label="所属公司：">
+          {{detail.enterpriseName}}
         </FormItem>
         <FormItem label="被复制对象：">
           <Input v-model="detail.copyId" placeholder="请输入被复制的站点编号"></Input>
@@ -55,6 +55,7 @@ export default {
   },
   created () {
     this.detail.userId = this.decodeId(this.$route.params.id, 'User_', 32)
+    this.detail.enterpriseName = this.$route.query.name
   },
   methods: {
     submit () {

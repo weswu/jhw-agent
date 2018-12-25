@@ -12,8 +12,8 @@
         <FormItem label="订单编号：">
           {{detail.orderSn}}
         </FormItem>
-        <FormItem label="产品名称：">
-          <Input v-model="detail.productName" placeholder="请输入产品名称"></Input>
+        <FormItem label="版本：">
+          <Input v-model="detail.productName" placeholder="请输入版本"></Input>
         </FormItem>
         <FormItem label="金额：">
           <InputNumber v-model="detail.amount" placeholder="请输入金额"></InputNumber>

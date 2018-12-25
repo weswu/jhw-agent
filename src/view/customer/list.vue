@@ -1,7 +1,7 @@
 <template>
   <Layout class="j_layout_content">
     <Content>
-      <JHeader :title="'客户列表'" :tip="'温馨提醒：'"/>
+      <JHeader :title="'客户列表'" :tip="'温馨提醒：可搜索内容为“企业账号”、“公司名称”'"/>
       <div class="j_search">
         <Row type="flex" justify="space-between">
           <Col>
@@ -346,7 +346,7 @@ export default {
           on: {
             click: () => {
               window.localStorage.setItem('memberIndex', params.index)
-              this.$router.push({ path: '/member/order/' + this.encodeId(params.row.userId) })
+              this.$router.push({ path: '/member/order/' + this.encodeId(params.row.userId), query: { name: params.row.enterprise.name } })
             }
           }
         }, '添加产品')

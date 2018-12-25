@@ -1,7 +1,7 @@
 <template>
   <Layout class="j_layout_content">
     <Content>
-      <JHeader :title="'产品订单列表'" :tip="'温馨提醒：'"/>
+      <JHeader :title="'产品订单列表'" :tip="'温馨提醒：可搜索内容为“企业账号”、“公司名称”、“版本”、“站点编号”'"/>
       <div class="j_search">
         <Row type="flex" justify="space-between">
           <Col>
@@ -37,7 +37,7 @@ export default {
         { title: '企业账号', key: 'username', className: 'text-color', ellipsis: true },
         { title: '公司名称', className: 'text-color', render: this.nameFilter },
         { title: '订单编号', key: 'orderSn', className: 'text-color' },
-        { title: '产品名称', key: 'productName' },
+        { title: '版本', key: 'productName' },
         { title: '创建时间', key: 'addTime', render: this.dataFilter },
         { title: '站点', render: this.staticFilter },
         { title: '站点名称', key: 'seoTitle' },
@@ -181,7 +181,7 @@ export default {
           href: host + '/rest/site/' + params.row.productId + '/index',
           target: '_blank'
         }
-      }, '查看')
+      }, '查看（' + params.row.productId + '）')
     },
     stateFilter (h, params) {
       let text = ''
