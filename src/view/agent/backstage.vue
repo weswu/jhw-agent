@@ -34,7 +34,7 @@
         </FormItem>
       </Form>
       <Form :model="config" :label-width="130">
-        <FormItem label="后台视频教程：" style="margin:70px 0 30px 0">
+        <FormItem label="后台视频教程(腾讯)：" style="margin:70px 0 30px 0">
           <div class="vTitle">视频教程 - 教程中心：</div>
           <Input v-model="config.video.vManage" placeholder="请输入视频链接"></Input><Button class="submit" @click="defalutVideo('vManage')">默认</Button>
           <div class="vTitle">视频教程 - 安全设置：</div>

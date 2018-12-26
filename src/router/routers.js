@@ -236,7 +236,7 @@ const routers = [
             name: 'agent/miniprogram',
             meta: {
               title: '小程序后台设置',
-              showInMenu: false
+              showInMenu: true
             },
             component: () => import('@/view/agent/miniprogram')
           }
