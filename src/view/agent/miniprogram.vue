@@ -1,7 +1,21 @@
 <template>
   <Layout class="j_layout_content j_form_detail">
-    <JHeader :title="'小程序后台设置'" :tip="tip"/>
+    <JHeader :title="'小程序后台设置'"/>
     <Content>
+      <div class="j_tip" style="margin-top:0">
+        温馨提醒：<br/>
+        1、用 appid <a href="http://api.jihui88.net/jihui_wxapp/app/#/auth" target="_blank">授权</a> 机汇网代为开发小程序。<br/>
+        2、设置小程序 <a href="https://mp.weixin.qq.com/wxopen/devprofile?action=get_profile&token=505145246&lang=zh_CN" target="_blank">服务器域名</a>；<br/>
+        （1）request合法域名：wx.jihui88.net、api.jihui88.net、www.jihui88.com、vv.video.qq.com<br/>
+        （2）uploadFile合法域名：www.jihui88.com<br/>
+        （3）downloadFile合法域名：www.jihui88.com、img.jihui88.com<br/>
+        3、搜索 <a href="http://api.jihui88.net/jihui_wxapp/app/#/" target="_blank">小程序名</a> 查询设置参数；<br/>
+        （1）选择模板：208<br/>
+        （2）模板配置：<Poptip placement="right" width="400" trigger="hover"><span class="a_underline">查看</span>
+          <div slot="content"><pre>{<br/>&nbsp;&nbsp;"extEnable": true,<br/>&nbsp;&nbsp;"extAppid": "替换成appid",<br/>&nbsp;&nbsp;"ext": {<br/>&nbsp;&nbsp;&nbsp;&nbsp;"appid": "替换成appid",<br/>&nbsp;&nbsp;&nbsp;&nbsp;"domain": admin.{{user.bindUrl}}<br/>&nbsp;&nbsp;}<br/>}</pre></div></Poptip><br/>
+        （3）页面小程序码(可选)：/pages/user/login<br/>
+        （4）代码管理流程：上传代码、提交审核、发布
+      </div>
       <Form :model="config" :label-width="160">
         <FormItem :label="'认识' + user.enterpriseName + '：'" style="margin-bottom:20px">
           <JImage :src="config.wxappLogo" @on-change="picChange" :width="104" style="border-radius: 104px;width: 104px;overflow: hidden;height: 104px;"/>
@@ -62,7 +76,6 @@ export default {
   data () {
     return {
       modal: false,
-      tip: '',
       type: '',
       cateList: [],
       video: {}
@@ -70,7 +83,6 @@ export default {
   },
   created () {
     if (!this.config.configId) this.$store.dispatch('getConfig')
-    this.tip = '温馨提醒：<br/>1、用 appid <a href="http://api.jihui88.net/jihui_wxapp/app/#/auth" target="_blank">授权</a> 机汇网代为开发小程序。<br/>2、设置小程序 <a href="https://mp.weixin.qq.com/wxopen/devprofile?action=get_profile&token=505145246&lang=zh_CN" target="_blank">服务器域名</a>；<br/>（1）request合法域名：wx.jihui88.net、api.jihui88.net、www.jihui88.com、vv.video.qq.com<br/>（2）uploadFile合法域名：www.jihui88.com<br/>（3）downloadFile合法域名：www.jihui88.com、img.jihui88.com<br/>3、搜索 <a href="http://api.jihui88.net/jihui_wxapp/app/#/" target="_blank">小程序名</a> 查询设置参数；<br/>（1）选择模板：207<br/>（2）模板配置：<pre>{\n&nbsp;&nbsp;"extEnable": true,\n&nbsp;&nbsp;"extAppid": "wx2ad5856ee82bdfc3",\n&nbsp;&nbsp;"ext": {\n&nbsp;&nbsp;&nbsp;&nbsp;"appid": "wx2ad5856ee82bdfc3",\n&nbsp;&nbsp;&nbsp;&nbsp;"domain": "admin.' + this.user.bindUrl + '"\n&nbsp;&nbsp;}\n}</pre>（3）页面小程序码：/pages/user/login<br/>（4）代码管理：上传代码、提交审核、发布'
     this.getCate()
   },
   methods: {
