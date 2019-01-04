@@ -1,6 +1,6 @@
 <template>
-  <div class="safari_header" :class="{j_head: tip, j_head2: type}" v-if="$store.state.win !== 'small'">
-    <div class="j_header">
+  <div class="j_header" :class="{j_head: tip, j_head2: type}">
+    <div class="j_header_title">
       <Row type="flex" justify="space-between">
         <Col>
           <span class="title">{{title}}<span v-if="count">拥有积分：{{count}}分</span></span>
@@ -76,9 +76,12 @@ export default {
 </script>
 
 <style lang="less">
+.j_header{
+  padding-bottom: 24px;
+}
 // 内页标题
 .j_head{
-  .j_header{
+  .j_header_title{
     border-bottom: none;
     margin-bottom: 0;
   }
@@ -87,16 +90,13 @@ export default {
     margin-bottom: 0;
   }
   &.j_head2{
-    .j_header{
+    .j_header_title{
       border-bottom: 1px solid #c9c9c9;
       margin-bottom: 21px;
     }
   }
 }
-.safari_header{
-  padding-bottom: 24px;
-}
-.j_header{
+.j_header_title{
   border-bottom: 1px solid #c9c9c9;
   padding: 26px 0 12px 0;
   .title{

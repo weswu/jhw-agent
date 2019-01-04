@@ -77,11 +77,16 @@ export default new Vuex.Store({
       }).then((res) => {
         if (res.success) {
           let data = res.attributes.data
+          // 视频默认状态
           data.video = {}
           if (data.manageVideoLink) {
             data.video = JSON.parse(data.manageVideoLink)
           }
           if (!data.manageVideoState) data.manageVideoState = '02'
+          // 注册默认状态
+          if (!data.openRegister) data.openRegister = '00'
+          if (!data.openCellphoneRegister) data.openCellphoneRegister = '00'
+          if (!data.registerNotifyAgent) data.registerNotifyAgent = '00'
           this.commit('setConfig', data)
         }
       })

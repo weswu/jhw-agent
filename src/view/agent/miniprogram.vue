@@ -1,5 +1,5 @@
 <template>
-  <Layout class="j_layout_content j_form_detail">
+  <Layout class="j_layout_content j_form_detail j_agent_miniprogram">
     <JHeader :title="'小程序后台设置'"/>
     <Content>
       <div class="j_tip" style="margin-top:0">
@@ -13,8 +13,7 @@
         （1）选择模板：208<br/>
         （2）模板配置：<Poptip placement="right" width="400" trigger="hover"><span class="a_underline">查看</span>
           <div slot="content"><pre>{<br/>&nbsp;&nbsp;"extEnable": true,<br/>&nbsp;&nbsp;"extAppid": "替换成appid",<br/>&nbsp;&nbsp;"ext": {<br/>&nbsp;&nbsp;&nbsp;&nbsp;"appid": "替换成appid",<br/>&nbsp;&nbsp;&nbsp;&nbsp;"domain": admin.{{user.bindUrl}}<br/>&nbsp;&nbsp;}<br/>}</pre></div></Poptip><br/>
-        （3）页面小程序码(可选)：/pages/user/login<br/>
-        （4）代码管理流程：上传代码、提交审核、发布
+        （3）代码管理流程：上传代码、提交审核、发布
       </div>
       <Form :model="config" :label-width="160">
         <FormItem :label="'认识' + user.enterpriseName + '：'" style="margin-bottom:20px">
@@ -126,6 +125,14 @@ export default {
 .iframe-edit{
   .ivu-modal-footer{
     display: none
+  }
+}
+.j_agent_miniprogram{
+  .j_header{
+    padding-bottom: 0;
+  }
+  .j_header_title{
+    border-bottom: none;
   }
 }
 </style>

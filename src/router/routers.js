@@ -214,6 +214,15 @@ const routers = [
             component: () => import('@/view/agent/login')
           },
           {
+            path: 'register',
+            name: 'agent/register',
+            meta: {
+              title: '注册功能设置',
+              showInMenu: true
+            },
+            component: () => import('@/view/agent/register')
+          },
+          {
             path: 'backstage',
             name: 'agent/backstage',
             meta: {
