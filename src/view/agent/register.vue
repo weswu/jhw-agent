@@ -4,19 +4,13 @@
     <Content>
       <div class="j_tip" style="margin-top:0">
         短信设置流程：<br/>
-        1。<a href="https://home.console.aliyun.com/new#/" target="_blank">进入阿里云</a> -> 产品与服务   -> 云通信 -> 短信服务<br/>
-        2。签名添加：产品与服务   -> 云通信 -> 短信服务 -> 国内消息 -> 签名管理<br/>
-        3。模板添加：产品与服务   -> 云通信 -> 短信服务 -> 国内消息 ->模版管理<br/>
-        4。短信注册验证码模板设置：<a href="https://download.wunderlist.io/d1409f90-f14a-0136-3dfa-22000a097af6-1546495238-292298?AWSAccessKeyId=AKIAJEN6W4AO3LJODOAA&Expires=1549173641&Signature=%2Bh69g890wo%2FDdWJBlVYQLppKsqs%3D" target="_blank">详见图</a><br/>
-        5。短信通知代理商会员注册信息模板设置：<br/>有新会员注册，账号：${username}, 手机号码：${cellphone}
+        1、<a href="https://home.console.aliyun.com/new#/" target="_blank">进入阿里云</a> -> 产品与服务   -> 云通信 -> 短信服务<br/>
+        2、签名添加：产品与服务   -> 云通信 -> 短信服务 -> 国内消息 -> 签名管理<br/>
+        3、模板添加：产品与服务   -> 云通信 -> 短信服务 -> 国内消息 ->模版管理<br/>
+        4、短信注册验证码模板设置：<a href="https://download.wunderlist.io/d1409f90-f14a-0136-3dfa-22000a097af6-1546495238-292298?AWSAccessKeyId=AKIAJEN6W4AO3LJODOAA&Expires=1549173641&Signature=%2Bh69g890wo%2FDdWJBlVYQLppKsqs%3D" target="_blank">详见图</a><br/>
+        5、短信通知代理商会员注册信息模板设置：<br/>有新会员注册，账号：${username}, 手机号码：${cellphone}
       </div>
       <Form :model="config" :label-width="220" ref="model">
-        <FormItem label="是否开启会员注册功能：">
-          <RadioGroup v-model="config.openRegister">
-            <Radio label="01">开启</Radio>
-            <Radio label="00">关闭</Radio>
-          </RadioGroup>
-        </FormItem>
         <FormItem label="是否开启短信注册功能：">
           <RadioGroup v-model="config.openCellphoneRegister">
             <Radio label="01">开启</Radio>

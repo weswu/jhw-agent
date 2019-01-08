@@ -4,13 +4,15 @@
     <Content>
       <div class="j_tip" style="margin-top:0">
         温馨提醒：<br/>
-        1、用 appid <a href="http://api.jihui88.net/jihui_wxapp/app/#/auth" target="_blank">授权</a> 机汇网代为开发小程序。<br/>
-        2、设置小程序 <a href="https://mp.weixin.qq.com/wxopen/devprofile?action=get_profile&token=505145246&lang=zh_CN" target="_blank">服务器域名</a>；<br/>
+        一、使用<a href="http://api.jihui88.net/jihui_wxapp/app/#/page/wx2aba9d238ba02a76" target="_blank">机汇网小程序</a>，添加页面路径就完成了：/pages/user/login?domain=admin.{{user.bindUrl}}<br/>
+        二、使用自己注册的小程序可按下面步骤执行。<br/>
+        1、<a href="http://api.jihui88.net/jihui_wxapp/app/#/auth" target="_blank">授权</a>: 使用 appid 机汇网代为开发小程序。<br/>
+        2、<a href="https://mp.weixin.qq.com/wxopen/devprofile?action=get_profile&token=505145246&lang=zh_CN" target="_blank">小程序服务器域名</a>: 未设置可手动添加；<br/>
         （1）request合法域名：wx.jihui88.net、api.jihui88.net、www.jihui88.com、vv.video.qq.com<br/>
         （2）uploadFile合法域名：www.jihui88.com<br/>
         （3）downloadFile合法域名：www.jihui88.com、img.jihui88.com<br/>
         3、搜索 <a href="http://api.jihui88.net/jihui_wxapp/app/#/" target="_blank">小程序名</a> 查询设置参数；<br/>
-        （1）选择模板：208<br/>
+        （1）选择模板：210<br/>
         （2）模板配置：<Poptip placement="right" width="400" trigger="hover"><span class="a_underline">查看</span>
           <div slot="content"><pre>{<br/>&nbsp;&nbsp;"extEnable": true,<br/>&nbsp;&nbsp;"extAppid": "替换成appid",<br/>&nbsp;&nbsp;"ext": {<br/>&nbsp;&nbsp;&nbsp;&nbsp;"appid": "替换成appid",<br/>&nbsp;&nbsp;&nbsp;&nbsp;"domain": admin.{{user.bindUrl}}<br/>&nbsp;&nbsp;}<br/>}</pre></div></Poptip><br/>
         （3）代码管理流程：上传代码、提交审核、发布
@@ -38,10 +40,12 @@
             <Option v-for="item in cateList" :value="item.categoryId" :key="item.categoryId">{{ item.name }}</Option>
           </Select>
         </FormItem>
-
         <FormItem label="后台视频链接：" style="margin:50px 0 30px 0">
           <div class="vTitle">10分钟入门</div>
           <Input v-model="config.video.vTen" placeholder="视频地址参考：https://v.qq.com/x/page/xxx.html"></Input>
+        </FormItem>
+        <FormItem label="上传小程序码" style="margin-bottom:20px">
+          <JImage :src="config.miniprogramcode" @on-change="picChange2" :width="104"/>
         </FormItem>
       </Form>
       <Modal
@@ -98,6 +102,9 @@ export default {
     },
     picChange (e) {
       this.config.wxappLogo = e.src
+    },
+    picChange2 (e) {
+      this.config.miniprogramcode = e.src
     },
     edit (e) {
       this.type = e
