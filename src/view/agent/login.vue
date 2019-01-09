@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import qs from 'qs'
 import { mapState } from 'vuex'
 import JHeader from '@/components/group/j-header'
 import JImage from '@/components/group/j-image'
@@ -57,7 +56,7 @@ export default {
       this.config.ico = e.src
     },
     submit () {
-      this.$store.dispatch('setConfig', qs.stringify(this.config))
+      this.$store.dispatch('setConfig', this.config)
       let ctx = this
       setTimeout(function () {
         ctx.$Message.success('保存成功')

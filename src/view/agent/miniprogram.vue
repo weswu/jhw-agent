@@ -18,6 +18,9 @@
         （3）代码管理流程：上传代码、提交审核、发布
       </div>
       <Form :model="config" :label-width="160">
+        <FormItem label="小程序Banner：" style="margin-bottom:20px">
+          <JBanner/>
+        </FormItem>
         <FormItem :label="'认识' + user.enterpriseName + '：'" style="margin-bottom:20px">
           <JImage :src="config.wxappLogo" @on-change="picChange" :width="104" style="border-radius: 104px;width: 104px;overflow: hidden;height: 104px;"/>
         </FormItem>
@@ -64,14 +67,15 @@
 </template>
 
 <script>
-import qs from 'qs'
 import { mapState } from 'vuex'
 import JHeader from '@/components/group/j-header'
 import JImage from '@/components/group/j-image'
+import JBanner from '@/components/group/j-banner'
 export default {
   components: {
     JHeader,
-    JImage
+    JImage,
+    JBanner
   },
   computed: {
     ...mapState(['user', 'config'])
@@ -96,7 +100,7 @@ export default {
         if (res.success) {
           this.cateList = res.attributes.data
         } else {
-          this.$Message.success(res.msg)
+          console.log('category/news:' + res.msg)
         }
       })
     },
@@ -112,7 +116,7 @@ export default {
     },
     submit () {
       this.config.manageVideoLink = JSON.stringify(this.config.video)
-      this.$store.dispatch('setConfig', qs.stringify(this.config))
+      this.$store.dispatch('setConfig', this.config)
       let ctx = this
       setTimeout(function () {
         ctx.$Message.success('保存成功')

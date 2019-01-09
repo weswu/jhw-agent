@@ -49,7 +49,6 @@
 </template>
 
 <script>
-import qs from 'qs'
 import { mapState } from 'vuex'
 import JHeader from '@/components/group/j-header'
 export default {
@@ -69,7 +68,7 @@ export default {
   },
   methods: {
     submit () {
-      this.$store.dispatch('setConfig', qs.stringify(this.config))
+      this.$store.dispatch('setConfig', this.config)
       let ctx = this
       setTimeout(function () {
         ctx.$Message.success('保存成功')

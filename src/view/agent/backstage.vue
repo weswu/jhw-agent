@@ -120,7 +120,7 @@ export default {
     },
     submit () {
       this.config.manageVideoLink = JSON.stringify(this.config.video)
-      this.$store.dispatch('setConfig', qs.stringify(this.config))
+      this.$store.dispatch('setConfig', this.config)
       this.$store.dispatch('setUser', qs.stringify(this.user))
       let ctx = this
       setTimeout(function () {

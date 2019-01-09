@@ -4,6 +4,7 @@ import {
 import Vue from 'vue'
 import Vuex from 'vuex'
 import routers from '@/router/routers'
+import qs from 'qs'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -22,6 +23,9 @@ export default new Vuex.Store({
     },
     menuList: [],
     config: {
+      user: {
+        name: ''
+      },
       video: {}
     },
     loading: false
@@ -92,9 +96,12 @@ export default new Vuex.Store({
       })
     },
     setConfig ({ commit, state }, params) {
+      let data = params
+      delete data.user
+      delete data.video
       this._vm.$http.request({
         url: '/rest/api/agent/config/editConfig',
-        data: params,
+        data: qs.stringify(data),
         method: 'post'
       }).then((res) => {
         if (res.success) {

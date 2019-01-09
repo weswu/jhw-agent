@@ -1,5 +1,5 @@
 <template>
-  <Upload id="fileUpload" ref="upload" :action="'/commonutil/uploadUtil2?username=' + $store.state.user.username + '&replace=00&attId=&id='"
+  <Upload id="fileUpload" ref="upload" :action="'/commonutil/uploadUtil2?username=' + $store.state.user.username + '&replace=' + replace + '&attId=' + attId + '&id=' + albumId"
     :multiple="true"
     :show-upload-list="true"
     name="Filedata"
@@ -18,6 +18,9 @@
 <script>
 export default {
   props: {
+    albumId: '',
+    replace: '00',
+    attId: '',
     src: {},
     width: {
       type: Number,
