@@ -60,7 +60,7 @@ export default {
       this.config.designLogo1 = e.src
     },
     defalutVideo () {
-      this.$set(this.config.video, 'vPc', 'https://v.qq.com/x/page/b0766xub26n.html')
+      this.$set(this.config.video, 'vPc', 'https://v.qq.com/x/page/a0826kslr5q.html')
     },
     submit () {
       this.config.manageVideoLink = JSON.stringify(this.config.video)
