@@ -82,9 +82,14 @@ export default new Vuex.Store({
         if (res.success) {
           let data = res.attributes.data
           // 视频默认状态
-          data.video = {}
+          data.video = {
+            vTenText: '3分钟入门',
+            vTen: 'https://v.qq.com/x/page/a0826kslr5q.html'
+          }
           if (data.manageVideoLink) {
             data.video = JSON.parse(data.manageVideoLink)
+            // 十分钟
+            if (!data.video.vTenText) data.video.vTenText = '3分钟入门'
           }
           if (!data.manageVideoState) data.manageVideoState = '02'
           // 注册默认状态

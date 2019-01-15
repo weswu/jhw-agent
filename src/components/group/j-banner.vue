@@ -2,8 +2,9 @@
   <ul class="j_picture">
     <li class="j_picture_item" v-for="(item, index) in list" :key="index">
       <img :src="'http://img.jihui88.com/'+item.serverPath">
-      <div class="bom" @click="del(item, index)">
-        删除
+      <div class="bom">
+        <span @click="edit(item, index)">编辑</span>
+        <span @click="del(item, index)">删除</span>
       </div>
       <div class="update" @click="open(item, index)">
         重新上传
@@ -25,10 +26,21 @@
         </div>
       </div>
     </Upload>
+    <Modal
+      class-name="j_edit_item"
+      width="276"
+      v-model="itemModel"
+      title="编辑图片"
+      @on-ok="editItem">
+      <Input v-model="item.filename" class="w244" placeholder="图片名称"></Input><br/>
+      <Input v-model="item.linkUrl" class="w244" placeholder="链接地址"></Input><br/>
+      排序：<InputNumber v-model="item.sort" placeholder="排序"></InputNumber>
+    </Modal>
   </ul>
 </template>
 
 <script>
+import qs from 'qs'
 export default {
   data () {
     return {
@@ -36,6 +48,8 @@ export default {
       replace: '00',
       attId: '',
       albumId: '',
+      itemModel: false,
+      item: {},
       list: []
     }
   },
@@ -51,6 +65,7 @@ export default {
           let data = res.attributes.data
           data.forEach(item => {
             if (item.name === '[系统]微信小程序Banner相册') {
+              this.albumId = item.albumId
               this.getBanner(item.albumId)
             }
           })
@@ -59,10 +74,9 @@ export default {
         }
       })
     },
-    getBanner (id) {
-      this.albumId = id
+    getBanner () {
       this.$http.request({
-        url: '/rest/api/album/attr/list/' + id
+        url: '/rest/api/album/attr/list/' + this.albumId
       }).then((res) => {
         if (res.success) {
           this.list = res.attributes.data
@@ -94,6 +108,34 @@ export default {
           this.list.splice(index, 1)
         } else {
           console.log('album/attr/img/delete:' + res.msg)
+        }
+      })
+    },
+    edit (item, index) {
+      this.itemModel = true
+      this.item = item
+    },
+    editItem () {
+      let data = {
+        model: JSON.stringify({
+          id: this.item.attId,
+          filename: this.item.serverPath,
+          sort: this.item.sort,
+          linkUrl: this.item.linkUrl,
+          editField: true
+        }),
+        _method: 'put'
+      }
+      this.$http.request({
+        url: '/rest/api/album/attr/img/detail/' + this.item.attId,
+        data: qs.stringify(data),
+        method: 'post'
+      }).then((res) => {
+        if (res.success) {
+          this.getBanner()
+          this.$Message.success('修改成功')
+        } else {
+          this.$Message.error(res.msg)
         }
       })
     },
@@ -132,6 +174,9 @@ export default {
 </script>
 
 <style lang="less">
+.j_edit_item .ivu-input-wrapper {
+  margin-bottom: 10px;
+}
 .j_picture{
   position: relative;
   .j_picture_item{
@@ -174,15 +219,8 @@ export default {
       line-height: 25px;
       opacity: 0;
       transition: 0.3s ease;
-      i{
-        color: #437708;
-        font-size: 22px;
-        float: left;
-        width: 30%;
-      }
-      .icon-x{
-        color: #d0021b;
-        font-size: 14px;
+      span{
+        width: 50%;display: inline-block;
       }
     }
     .update{

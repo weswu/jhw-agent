@@ -43,9 +43,9 @@
             <Option v-for="item in cateList" :value="item.categoryId" :key="item.categoryId">{{ item.name }}</Option>
           </Select>
         </FormItem>
-        <FormItem label="后台视频链接：" style="margin:50px 0 30px 0">
-          <div class="vTitle">10分钟入门</div>
-          <Input v-model="config.video.vTen" placeholder="视频地址参考：https://v.qq.com/x/page/xxx.html"></Input>
+        <FormItem :label="user.enterpriseName + '头条：'" style="margin:50px 0 30px 0">
+          <Input v-model="config.video.vTenText" class="w180" style="margin-bottom:10px"></Input><br/>
+          <Input v-model="config.video.vTen" placeholder="视频地址参考：https://v.qq.com/x/page/a0826kslr5q.html"></Input>
         </FormItem>
         <FormItem label="上传小程序码" style="margin-bottom:20px">
           <JImage :src="config.miniprogramcode" @on-change="picChange2" :width="104"/>
@@ -127,9 +127,6 @@ export default {
 </script>
 
 <style lang="less">
-.vTitle{
-  padding-left: 12px
-}
 .submit{
   width:70px;
 }

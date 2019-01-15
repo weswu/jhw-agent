@@ -29,8 +29,12 @@
         <FormItem label="链接设置：">
           <Input v-model="config.tecSupportLink"></Input>
         </FormItem>
-        <FormItem label="界面编辑教程：" style="margin-top:36px">
-          <Input v-model="config.video.vPc" placeholder="请输入视频链接"></Input><Button class="submit" @click="defalutVideo">默认</Button>
+
+        <FormItem label="建站流程视频(腾讯)：" style="margin:30px 0 30px 0">
+          <div class="vTitle">视频教程 - 教程中心：</div>
+          <Input v-model="config.video.vDesign" placeholder="请输入视频链接"></Input><Button class="submit" @click="defalutVideo('vDesign')">默认</Button>
+          <div class="vTitle">视频教程 - 快速建站：</div>
+          <Input v-model="config.video.vPc" placeholder="请输入视频链接"></Input><Button class="submit" @click="defalutVideo('vPc')">默认</Button>
         </FormItem>
       </Form>
     </Content>
@@ -52,6 +56,14 @@ export default {
   computed: {
     ...mapState(['user', 'config'])
   },
+  data () {
+    return {
+      video: {
+        vPc: 'https://v.qq.com/x/page/a0826kslr5q.html',
+        vDesign: 'http://v.qq.com/vplus/4aa13bffe0e2662991069f1800862a96/foldervideos/ja70029011ynh0d'
+      }
+    }
+  },
   created () {
     if (!this.config.configId) this.$store.dispatch('getConfig')
   },
@@ -59,8 +71,8 @@ export default {
     picChange (e) {
       this.config.designLogo1 = e.src
     },
-    defalutVideo () {
-      this.$set(this.config.video, 'vPc', 'https://v.qq.com/x/page/a0826kslr5q.html')
+    defalutVideo (e) {
+      this.$set(this.config.video, e, this.video[e])
     },
     submit () {
       this.config.manageVideoLink = JSON.stringify(this.config.video)
