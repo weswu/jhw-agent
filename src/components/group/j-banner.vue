@@ -76,7 +76,7 @@ export default {
     },
     getBanner () {
       this.$http.request({
-        url: '/rest/api/album/attr/list/' + this.albumId
+        url: '/rest/api/album/attr/list/' + this.albumId + '?sortField=sort&sortType=asc'
       }).then((res) => {
         if (res.success) {
           this.list = res.attributes.data

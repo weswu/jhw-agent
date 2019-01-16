@@ -81,18 +81,32 @@ export default new Vuex.Store({
       }).then((res) => {
         if (res.success) {
           let data = res.attributes.data
-          // 视频默认状态
+          // 小程序视频默认状态
           data.video = {
-            vTenText: '3分钟入门',
-            vTen: 'https://v.qq.com/x/page/a0826kslr5q.html'
+            vTen: 'https://v.qq.com/x/page/a0826kslr5q.html',
+            vManage: 'http://v.qq.com/vplus/4aa13bffe0e2662991069f1800862a96/foldervideos/gr2002901enccnk',
+            vAccount: 'https://v.qq.com/x/page/c0753vzonsm.html',
+            vProduct: 'https://v.qq.com/x/page/w0753bnm9kh.html',
+            vProductCategory: 'https://v.qq.com/x/page/e0753kcg4xb.html',
+            vImport: 'https://v.qq.com/x/page/j0753rag7kr.html',
+            vDownload: 'https://v.qq.com/x/page/n0753o7p54m.html',
+            vNews: 'https://v.qq.com/x/page/q0753wldx5d.html',
+            vNewsCategory: 'https://v.qq.com/x/page/g075303kosj.html',
+            vWebsite: 'https://v.qq.com/x/page/f0753d6r4fb.html',
+            vSeo: 'https://v.qq.com/x/page/u0753y5akkv.html',
+            vSitemap: 'https://v.qq.com/x/page/l0753l1jw2c.html',
+            vSeoBatch: 'https://v.qq.com/x/page/u0753ji3n5n.html',
+            vAnalysis: 'https://v.qq.com/x/page/j0753ycgfeh.html'
           }
           if (data.manageVideoLink) {
             data.video = JSON.parse(data.manageVideoLink)
-            // 十分钟
-            if (!data.video.vTenText) data.video.vTenText = '3分钟入门'
           }
+          // 十分钟
+          if (!data.video.vTenText) data.video.vTenText = '3分钟入门'
+          if (!data.video.vTenContent) data.video.vTenContent = '快速了解' + data.user.enterprise.name + '产品'
+          // ?
           if (!data.manageVideoState) data.manageVideoState = '02'
-          // 注册默认状态
+          // 登录页面是否显示注册
           if (!data.openRegister) data.openRegister = '00'
           if (!data.openCellphoneRegister) data.openCellphoneRegister = '00'
           if (!data.registerNotifyAgent) data.registerNotifyAgent = '00'

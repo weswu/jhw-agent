@@ -12,7 +12,7 @@
         （2）uploadFile合法域名：www.jihui88.com<br/>
         （3）downloadFile合法域名：www.jihui88.com、img.jihui88.com<br/>
         3、搜索 <a href="http://api.jihui88.net/jihui_wxapp/app/#/" target="_blank">小程序名</a> 查询设置参数；<br/>
-        （1）选择模板：212<br/>
+        （1）选择模板：214<br/>
         （2）模板配置：<Poptip placement="right" width="400" trigger="hover"><span class="a_underline">查看</span>
           <div slot="content"><pre>{<br/>&nbsp;&nbsp;"extEnable": true,<br/>&nbsp;&nbsp;"extAppid": "替换成appid",<br/>&nbsp;&nbsp;"ext": {<br/>&nbsp;&nbsp;&nbsp;&nbsp;"appid": "替换成appid",<br/>&nbsp;&nbsp;&nbsp;&nbsp;"domain": admin.{{user.bindUrl}}<br/>&nbsp;&nbsp;}<br/>}</pre></div></Poptip><br/>
         （3）代码管理流程：上传代码、提交审核、发布
@@ -45,7 +45,8 @@
         </FormItem>
         <FormItem :label="user.enterpriseName + '头条：'" style="margin:50px 0 30px 0">
           <Input v-model="config.video.vTenText" class="w180" style="margin-bottom:10px"></Input><br/>
-          <Input v-model="config.video.vTen" placeholder="视频地址参考：https://v.qq.com/x/page/a0826kslr5q.html"></Input>
+          <Input v-model="config.video.vTenContent" class="w180" style="margin-bottom:10px"></Input><br/>
+          <Input v-model="config.video.vTen" placeholder="请输入视频链接"></Input><Button class="submit" @click="defalutVideo('vTen')">默认</Button>
         </FormItem>
         <FormItem label="上传小程序码" style="margin-bottom:20px">
           <JImage :src="config.miniprogramcode" @on-change="picChange2" :width="104"/>
@@ -55,8 +56,8 @@
         class-name="iframe-edit"
         v-model="modal"
         title="编辑"
-        width="820">
-        <iframe :src="'http://www.jihui88.com/manage_v4/index.html?win=small&lanId=1#/' + type" style="width:790px;height:650px;"></iframe>
+        width="850">
+        <iframe :src="'http://www.jihui88.com/manage_v4/index.html?win=small&lanId=1#/' + type" style="width:820px;height:650px;"></iframe>
         <div slot="footer" style="display:none"></div>
       </Modal>
     </Content>
@@ -85,7 +86,9 @@ export default {
       modal: false,
       type: '',
       cateList: [],
-      video: {}
+      video: {
+        vTen: 'https://v.qq.com/x/page/a0826kslr5q.html'
+      }
     }
   },
   created () {
@@ -113,6 +116,9 @@ export default {
     edit (e) {
       this.type = e
       this.modal = true
+    },
+    defalutVideo (e) {
+      this.$set(this.config.video, e, this.video[e])
     },
     submit () {
       this.config.manageVideoLink = JSON.stringify(this.config.video)
