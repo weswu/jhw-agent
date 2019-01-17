@@ -70,7 +70,9 @@ export default {
   data () {
     return {
       modal: false,
-      detail: {},
+      detail: {
+        year: '1'
+      },
       columns: [
         { title: '企业账号', key: 'username', className: 'text-color', ellipsis: true },
         { title: '订单编号', key: 'orderSn', className: 'text-color' },

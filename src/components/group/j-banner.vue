@@ -3,8 +3,14 @@
     <li class="j_picture_item" v-for="(item, index) in list" :key="index">
       <img :src="'http://img.jihui88.com/'+item.serverPath">
       <div class="bom">
-        <span @click="edit(item, index)">编辑</span>
-        <span @click="del(item, index)">删除</span>
+        <span class="span" @click="edit(item, index)">编辑</span>
+        <Poptip class="span"
+          confirm
+          width="190"
+          title="您确认删除这张图片吗？"
+          @on-ok="del(item, index)">
+          <span>删除</span>
+        </Poptip>
       </div>
       <div class="update" @click="open(item, index)">
         重新上传
@@ -100,10 +106,12 @@ export default {
       btn.click()
     },
     del (item, index) {
+      this.$store.commit('setLoading', true)
       this.$http.request({
         url: '/rest/api/album/attr/img/delete?attIds=' + item.attId,
         method: 'post'
       }).then((res) => {
+        this.$store.commit('setLoading', false)
         if (res.success) {
           this.list.splice(index, 1)
         } else {
@@ -152,7 +160,7 @@ export default {
           this.list[this.index].serverPath = item.serverPath
           this.list[this.index].filename = item.filename
         } else {
-          this.list.splice(0, 0, item)
+          this.list.push(item)
         }
       }
       var ctx = this
@@ -191,7 +199,6 @@ export default {
     margin-bottom: 10px;
     position: relative;
     background: #f5f6fa;
-    overflow: hidden;
     color: #9b9b9b;
     &:hover{
       .bom{
@@ -217,10 +224,13 @@ export default {
       height: 25px;
       color: #999;
       line-height: 25px;
-      opacity: 0;
+      opacity: 1;
       transition: 0.3s ease;
-      span{
+      .span{
         width: 50%;display: inline-block;
+      }
+      .ivu-poptip-body{
+        text-align: left;
       }
     }
     .update{

@@ -27,6 +27,7 @@
         <FormItem label="关于我们：">
           <span @click="edit('company')" class="a_underline">编辑</span>
         </FormItem>
+        <CategoryList ref="category" :category="config.video.miniprogramcase"/>
         <FormItem label="新闻列表：">
           <span @click="edit('news')" class="a_underline">编辑</span>
         </FormItem>
@@ -72,11 +73,13 @@ import { mapState } from 'vuex'
 import JHeader from '@/components/group/j-header'
 import JImage from '@/components/group/j-image'
 import JBanner from '@/components/group/j-banner'
+import CategoryList from '@/components/group/j-category'
 export default {
   components: {
     JHeader,
     JImage,
-    JBanner
+    JBanner,
+    CategoryList
   },
   computed: {
     ...mapState(['user', 'config'])

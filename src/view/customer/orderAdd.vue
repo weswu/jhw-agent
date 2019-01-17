@@ -7,7 +7,10 @@
           {{detail.enterpriseName}}
         </FormItem>
         <FormItem label="被复制对象：">
-          <Input v-model="detail.copyId" placeholder="请输入被复制的站点编号"></Input>
+          <Input v-model="detail.copyId" class="w244" placeholder="请输入被复制的站点编号"></Input>
+          <div class="j_tip j_tip_input">
+            温馨提醒：您要参考哪个模板，就填写模板的编号，不填写的话，稍后进入界面编辑，也可以挑选系统模板。
+          </div>
         </FormItem>
         <FormItem label="商品类型：">
           <RadioGroup v-model="detail.productType">
@@ -49,7 +52,8 @@ export default {
   data () {
     return {
       detail: {
-        productType: 'pc'
+        productType: 'pc',
+        year: '1'
       }
     }
   },
@@ -77,4 +81,11 @@ export default {
 </script>
 
 <style lang="less">
+.j_form_detail .j_tip_input{
+  position: absolute;
+  left: 270px;
+  top: -21px;
+  line-height: 2;
+  color: #999;
+}
 </style>
