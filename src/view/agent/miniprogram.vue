@@ -24,11 +24,27 @@
         <FormItem :label="'认识' + user.enterpriseName + '：'" style="margin-bottom:20px">
           <JImage :src="config.wxappLogo" @on-change="picChange" :width="104" style="border-radius: 104px;width: 104px;overflow: hidden;height: 104px;"/>
         </FormItem>
-        <FormItem label="关于我们：">
+        <FormItem label="关于我们：" style="margin-bottom:30px">
           <span @click="edit('company')" class="a_underline">编辑</span>
         </FormItem>
-        <CategoryList ref="category" :category="config.video.miniprogramcase"/>
-        <FormItem label="新闻列表：">
+
+        <FormItem label="产品列表：">
+          <span @click="edit('product')" class="a_underline">编辑</span>
+        </FormItem>
+        <FormItem label="产品分类：">
+          <span @click="edit('product_category')" class="a_underline">编辑</span>
+        </FormItem>
+        <FormItem label="小程序案例：">
+          <RadioGroup v-model="config.miniprogramcaseState">
+            <Radio label="01">默认</Radio>
+            <Radio label="00">自定义</Radio>
+          </RadioGroup><br/>
+          <Select v-model="config.miniprogramcase" :label-in-value="label" multiple style="width:400px" @on-change="setOption" v-if="config.miniprogramcaseState !== '01'">
+            <Option v-for="item in productCategory" :value="item.categoryId" :key="item.categoryId">{{ item.name }}</Option>
+          </Select>
+        </FormItem>
+
+        <FormItem label="新闻列表：" style="margin-top:30px" >
           <span @click="edit('news')" class="a_underline">编辑</span>
         </FormItem>
         <FormItem label="新闻分类：">
@@ -58,7 +74,7 @@
         v-model="modal"
         title="编辑"
         width="850">
-        <iframe :src="'http://www.jihui88.com/manage_v4/index.html?win=small&lanId=1#/' + type" style="width:820px;height:650px;"></iframe>
+        <iframe :src="src" style="width:820px;height:650px;"></iframe>
         <div slot="footer" style="display:none"></div>
       </Modal>
     </Content>
@@ -73,30 +89,33 @@ import { mapState } from 'vuex'
 import JHeader from '@/components/group/j-header'
 import JImage from '@/components/group/j-image'
 import JBanner from '@/components/group/j-banner'
-import CategoryList from '@/components/group/j-category'
+import Category from '@/components/group/j-category'
 export default {
   components: {
     JHeader,
     JImage,
     JBanner,
-    CategoryList
+    Category
   },
   computed: {
-    ...mapState(['user', 'config'])
+    ...mapState(['user', 'config', 'productCategory'])
   },
   data () {
     return {
       modal: false,
-      type: '',
       cateList: [],
       video: {
         vTen: 'https://v.qq.com/x/page/a0826kslr5q.html'
-      }
+      },
+      type: '',
+      src: '',
+      label: true
     }
   },
   created () {
     if (!this.config.configId) this.$store.dispatch('getConfig')
     this.getCate()
+    if (this.productCategory.length === 0) this.$store.dispatch('getCategory', 'product')
   },
   methods: {
     getCate () {
@@ -117,13 +136,36 @@ export default {
       this.config.miniprogramcode = e.src
     },
     edit (e) {
+      if ((this.type === 'product_category' || this.type === 'news_category') && (e === 'product_category' || e === 'news_category')) {
+        this.src = ''
+        setTimeout(() => {
+          this.src = 'http://www.jihui88.com/manage_v4/index.html?win=small&lanId=1#/' + e
+        }, 100)
+      } else {
+        this.src = 'http://www.jihui88.com/manage_v4/index.html?win=small&lanId=1#/' + e
+      }
       this.type = e
       this.modal = true
     },
     defalutVideo (e) {
       this.$set(this.config.video, e, this.video[e])
     },
+    setOption (value) {
+      let ctx = this
+      let list = []
+      if (value.length > 0) {
+        value.forEach(item => {
+          list.push({
+            value: item.label,
+            key: ctx.encodeId(item.value)
+          })
+        })
+      }
+      this.config.video.miniprogramcaseSelect = list
+    },
     submit () {
+      this.config.video.miniprogramcase = this.config.miniprogramcase
+      this.config.video.miniprogramcaseState = this.config.miniprogramcaseState
       this.config.manageVideoLink = JSON.stringify(this.config.video)
       this.$store.dispatch('setConfig', this.config)
       let ctx = this

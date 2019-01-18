@@ -22,6 +22,7 @@ export default new Vuex.Store({
       'addTime': 1540430568989
     },
     menuList: [],
+    productCategory: [],
     config: {
       user: {
         name: ''
@@ -33,6 +34,7 @@ export default new Vuex.Store({
   getters: {
     user: state => state.user,
     menuList: state => state.menuList,
+    productCategory: state => state.productCategory,
     config: state => state.config,
     loading: state => state.loading
   },
@@ -42,6 +44,9 @@ export default new Vuex.Store({
     },
     setMenuList (state, menuList) {
       state.menuList = getMenuByRouter(routers, '')
+    },
+    setProductCategory (state, productCategory) {
+      state.productCategory = productCategory
     },
     setConfig (state, config) {
       state.config = config
@@ -103,9 +108,14 @@ export default new Vuex.Store({
           }
           // 十分钟
           if (!data.video.vTenText) data.video.vTenText = '3分钟入门'
-          if (!data.video.vTenContent) data.video.vTenContent = '快速了解' + data.user.enterprise.name + '产品'
+          if (!data.video.vTenContent) data.video.vTenContent = '快速了解建站流程'
           // ?
           if (!data.manageVideoState) data.manageVideoState = '02'
+          // 小程序案例
+          data.miniprogramcaseState = '00'
+          if (data.video.miniprogramcaseState) data.miniprogramcaseState = data.video.miniprogramcaseState
+          data.miniprogramcase = []
+          if (data.video.miniprogramcase) data.miniprogramcase = data.video.miniprogramcase
           // 登录页面是否显示注册
           if (!data.openRegister) data.openRegister = '00'
           if (!data.openCellphoneRegister) data.openCellphoneRegister = '00'
@@ -129,7 +139,20 @@ export default new Vuex.Store({
           if (data.manageVideoLink) {
             data.video = JSON.parse(data.manageVideoLink)
           }
+          // 小程序案例
+          data.miniprogramcaseState = data.video.miniprogramcaseState
+          data.miniprogramcase = data.video.miniprogramcase
           this.commit('setConfig', data)
+        }
+      })
+    },
+    getCategory ({ commit, state }, type) {
+      return this._vm.$http.request({
+        url: '/rest/api/category/' + type + '?pageSize=1000'
+      }).then(res => {
+        if (res.success) {
+          let data = res.attributes.data
+          this.commit('setProductCategory', data)
         }
       })
     }
