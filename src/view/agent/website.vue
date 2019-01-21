@@ -31,10 +31,10 @@
         </FormItem>
 
         <FormItem label="建站流程视频(腾讯)：" style="margin:30px 0 30px 0">
-          <div class="vTitle">视频教程 - 教程中心：</div>
-          <Input v-model="config.video.vDesign" placeholder="请输入视频链接"></Input><Button class="submit" @click="defalutVideo('vDesign')">默认</Button>
           <div class="vTitle">视频教程 - 快速建站：</div>
           <Input v-model="config.video.vPc" placeholder="请输入视频链接"></Input><Button class="submit" @click="defalutVideo('vPc')">默认</Button>
+          <div class="vTitle">视频教程 - 建站流程：</div>
+          <Input v-model="config.video.vDesign" placeholder="请输入视频链接"></Input><Button class="submit" @click="defalutVideo('vDesign')">默认</Button>
         </FormItem>
       </Form>
     </Content>
