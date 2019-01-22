@@ -12,7 +12,7 @@
         （2）uploadFile合法域名：www.jihui88.com<br/>
         （3）downloadFile合法域名：www.jihui88.com、img.jihui88.com<br/>
         3、搜索 <a href="http://api.jihui88.net/jihui_wxapp/app/#/" target="_blank">小程序名</a> 查询设置参数；<br/>
-        （1）选择模板：214<br/>
+        （1）选择模板：216<br/>
         （2）模板配置：<Poptip placement="right" width="400" trigger="hover"><span class="a_underline">查看</span>
           <div slot="content"><pre>{<br/>&nbsp;&nbsp;"extEnable": true,<br/>&nbsp;&nbsp;"extAppid": "替换成appid",<br/>&nbsp;&nbsp;"ext": {<br/>&nbsp;&nbsp;&nbsp;&nbsp;"appid": "替换成appid",<br/>&nbsp;&nbsp;&nbsp;&nbsp;"domain": admin.{{user.bindUrl}}<br/>&nbsp;&nbsp;}<br/>}</pre></div></Poptip><br/>
         （3）代码管理流程：上传代码、提交审核、发布
