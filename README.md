@@ -2,8 +2,8 @@
 > [经销商后台](http://www.jihui88.com/agent_v4/index.html)
 
 
-### UI风格
-和https://github.com/weswu/jhw-member统一
+## UI风格
+和[用户管理后台统一](https://github.com/weswu/jhw-member)  
 
 
 ## 软件架构
